@@ -1,0 +1,1 @@
+view.changeView("HOME");
