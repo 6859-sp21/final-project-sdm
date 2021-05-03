@@ -36,8 +36,8 @@ const scatterPlot = {
             .attr("transform", `translate(${margin}, 0)`)
             .call(d3.axisLeft(yAxis));
         svg.append("text")
-            .attr("y", height / 3)
-            .attr("x", 10)
+            .attr("x", -1 * height / 3)
+            .attr("y", 10)
             .text(yAxisLabel)
             .attr("transform", "rotate(-90)");
     
@@ -50,7 +50,7 @@ const scatterPlot = {
                 .attr("cy", function(d) {return yAxis(d.utility)})
                 .attr("r", markRadius)
                 .on('mouseover', this._private.onMouseOverMark)
-               .on('mouseout', this._private.onMouseOutMark);
+                .on('mouseout', this._private.onMouseOutMark);
     
     },
     selectArchitectures: function(designChoices) {
@@ -64,7 +64,8 @@ const scatterPlot = {
             for (var i=0; i<choiceNames.length; i++) {
                 id += choices[choiceNames[i]] + "-";
             }
-            return id.substring(0, id.length - 1);
+            id = id.substring(0, id.length - 1);
+            return id;
         },
         onMouseOverMark: function (d, datum) {
             console.log(datum);

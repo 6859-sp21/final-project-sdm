@@ -2,9 +2,11 @@ var tradespaceView = {
     generate: function() {
         const that = this;
         // IF SAMPLE
-        dataController.loadDataFromCSV("scripts/tradespace-data-transportation.csv")
-            .then(that._private.onDataLoad)
-            .catch(console.error);
+        if (globalState.conceptArchitectures.length <= 0) {
+            dataController.loadDataFromCSV("scripts/tradespace-data-transportation.csv")
+                .then(that._private.onDataLoad)
+                .catch(console.error);
+        }
     },
     _private: {
         onDataLoad: function(data) {
@@ -50,6 +52,16 @@ var tradespaceView = {
                 for (var j=0; j<choiceOptions.length; j++) {
                     const designDecisionOptionDiv = designDecisionContainerDiv.append("div").classed("choice-option", true);
                     designDecisionOptionDiv.html(choiceOptions[j].name);
+                    // designDecisionOptionDiv.on("mouseover", function() {
+                    //     const option = d3.select(this).html();
+                    //     console.log(d3.selectAll(`circle[id*='${option}']`));
+                    //     d3.selectAll(`circle[id*='${option}']`).classed("selected", true);
+                    // });
+                    // designDecisionOptionDiv.on("mouseout", function() {
+                    //     const option = d3.select(this).html();
+                    //     console.log(d3.selectAll(`circle[id*='${option}']`));
+                    //     d3.selectAll(`circle[id*='${option}']`).classed("selected", false);
+                    // });
                 }
             }
         }

@@ -61,11 +61,33 @@ const config = {
             },
         },
         tradespaceDimensionsInPx: {
-            width: 500,
-            height: 500,
+            width: 400,
+            height: 400,
             markRadius: 5,
             focusRadius: 7,
             margin: 50
+        },
+        userMessages: {
+            "w1.1": [
+                "Alright, let’s start with your design choices!",
+                "Go ahead, add ‘em all ->", 
+                "Psst...don’t worry if you miss any, you’ll be able to add more later as well."
+            ],
+            "w1.2": [
+                "Great!",
+                "Feel free to add more", 
+                "When done, click the NEXT button!"
+            ],
+            "w2": [
+                "Sweet!",
+                "Now, let’s note the different options for each of these decisions...", 
+                "When done, click the NEXT button!"
+            ],
+            "w3": [
+                "Almost there!",
+                "Just score the different choice options, and you’re good to go...", 
+                "When done, click the NEXT button!"
+            ]
         }
     },
     getViewModes: function() {
@@ -91,5 +113,8 @@ const config = {
     },
     getviewGeneratorName: function(viewName) {
         return this._private.viewConfigs[viewName].viewGenerator;
+    },
+    getUserMessage: function(messageCode) {
+        return this._private.userMessages[messageCode];
     }
 };

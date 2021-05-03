@@ -27,5 +27,17 @@ const view = {
         this._private.clearView();
         this._private.generateView(viewName);
         this._private.setView(viewName);
+        globalState.viewMode = viewName;
+    },
+    setWizardMessage: function(messageCode) {
+        const msgsDiv = d3.select("#messages");
+
+        msgsDiv.html("");
+        
+        const msgs = config.getUserMessage(messageCode);
+        for (var i=0; i<msgs.length; i++) {
+            console.log(msgs[i]);
+            msgsDiv.append("p").html(`${msgs[i]}`);
+        }
     }
 };
