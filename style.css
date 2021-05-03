@@ -46,16 +46,16 @@ html {
 #home > #intro {
     background-color: lightgrey;
     width: 100%;
-    padding: 5em;
+    padding: 1em;
     min-height: 50px;
     display: flex;
     align-items: center;
     text-align: center;
     font-style:italic;
     color: black;
-    line-height: 2em;
+    line-height: 1.5em;
     font-family: serif;
-    font-size: 1em;
+    font-size: 1.5em;
 }
 #home > #home-btns {
     display: flex;
@@ -93,7 +93,7 @@ html {
     display: flex;
 }
 #build > div.raised > #header-build {
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 10%;
 }
@@ -140,7 +140,7 @@ html {
     border-radius: 50%;
     background-color: grey;
     color: white;
-    /* margin-left: -25px; */
+    box-shadow: 5px -5px black;
 }
 #build #wizard > #tabs #tab1 .tab-title,
 #build #wizard #controls > #wizard2,
@@ -228,7 +228,7 @@ html {
     border-radius: 1em;
     font-size: 1em;
     height: 2em;
-    background-color: gray;
+    font-weight: 500;
     color: white;
     width: 2em;
     display:flex;
@@ -236,10 +236,14 @@ html {
     align-items: center;
     float:right;
     cursor: pointer;
+    margin: 10px;
 }
 #tradespace #scatterplot {
     display:flex;
     justify-content: center;
+}
+#tradespace #scatterplot svg text {
+    font-size: 0.75em;
 }
 #tradespace #choices {
     display: flex;

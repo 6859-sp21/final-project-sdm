@@ -27,6 +27,7 @@ const view = {
         this._private.clearView();
         this._private.generateView(viewName);
         this._private.setView(viewName);
+        globalState.viewMode = viewName;
     },
     setWizardMessage: function(messageCode) {
         const msgsDiv = d3.select("#messages");

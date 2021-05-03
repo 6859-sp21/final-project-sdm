@@ -14,10 +14,15 @@ d3.select("#btn-close-tradespace").on("click", function() {
 d3.select("#btn-close-build-mode").on("click", function() {
     view.changeView("HOME");
 });
-
-// BUTTON CLICK - CLOSE BUILD MODE
-d3.select("#btn-close-build-mode").on("click", function() {
-    view.changeView("HOME");
+// BUTTON CLICK - BUILD MODE - BACK
+d3.select("#btn-back-build-mode").on("click", function() {
+    const currentView = globalState.viewMode;
+    const wizardNumber = currentView.substr(currentView.length - 1,1)
+    if (wizardNumber == 1) {
+        view.changeView("HOME");
+    } else {
+        view.changeView(`WIZARD${wizardNumber - 1}`);
+    }
 });
 // BUTTON CLICK - BUILD_WIZARD_1 - NEXT
 d3.select("#btn-wizard1").on("click", function() {
