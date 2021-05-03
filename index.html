@@ -125,33 +125,10 @@
                 <div class="retro">
                     <div id="header-tradespace">
                         <div id="btn-close-tradespace" class="btn-close"><span>X</span></div>
-                        <div id="tradespace-title"><h2>TRADESPACE TITLE HERE</h2></div>
+                        <div id="tradespace-title"><h2>LOADING...</h2></div>
                     </div>
-                    <div id="scatterplot">
-                        <!-- TEMPORARY -->
-                        <img src="tradespace.png" alt="TRADESPACE_SAMPLE" width="500" height="500"/>
-                    </div>
-                    <div id="choices">
-                        <!-- TEMPORARY -->
-                        <div class="choice">
-                            <div class="choice-name">Decision Choice 1</div>
-                            <div class="choice-option">Choice Option 1</div>
-                            <div class="choice-option">Choice Option n</div>
-                        </div>
-                        <div class="choice">
-                            <div class="choice-name">Decision Choice 2</div>
-                            <div class="choice-option">Choice Option 1</div>
-                            <div class="choice-option">Choice Option 2</div>
-                            <div class="choice-option">Choice Option 3</div>
-                            <div class="choice-option">Choice Option n</div>
-                        </div>
-                        <div class="choice">
-                            <div class="choice-name">Decision Choice 3</div>
-                            <div class="choice-option">Choice Option 1</div>
-                            <div class="choice-option">Choice Option 2</div>
-                            <div class="choice-option">Choice Option n</div>
-                        </div>
-                    </div>
+                    <div id="scatterplot"></div>
+                    <div id="choices"></div>
                 </div>
             </div>
         </div>
@@ -160,8 +137,18 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     
     <script type="text/javascript" src="scripts/config.js"></script>
-    <script type="text/javascript" src="scripts/data.js"></script>
-    <script type="text/javascript" src="scripts/view.js"></script>
-    <script type="text/javascript" src="scripts/controller.js"></script>
+    <script type="text/javascript" src="scripts/state.js"></script>
+    <script type="text/javascript" src="scripts/utilities.js"></script>
+    
+    <script type="text/javascript" src="scripts/data-controller.js"></script>
+    <script type="text/javascript" src="scripts/scatterplot-controller.js"></script>
+    <script type="text/javascript" src="scripts/view-controller.js"></script>
+    <script type="text/javascript" src="scripts/ui-controller.js"></script>
+    
+    <script type="text/javascript" src="scripts/tradespace-view.js"></script>
+    <script type="text/javascript" src="scripts/wizard1-view.js"></script>
+    <script type="text/javascript" src="scripts/wizard2-view.js"></script>
+    <script type="text/javascript" src="scripts/wizard3-view.js"></script>
+    
     <script type="text/javascript" src="scripts/index.js"></script>
 </html>

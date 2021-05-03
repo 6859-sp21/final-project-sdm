@@ -228,7 +228,6 @@ html, body, #content {
     cursor: pointer;
 }
 #tradespace #scatterplot {
-    height: 60%;
     display:flex;
     justify-content: center;
 }
@@ -268,6 +267,14 @@ html, body, #content {
         -4px 4px red,
         -5px 5px red;
     cursor: pointer;
+}
+circle {
+    fill: gray;
+    border: 1px solid black;
+}
+circle.selected {
+    fill: white;
+    border: 1px solid black;
 }
 /*
     justify-content
