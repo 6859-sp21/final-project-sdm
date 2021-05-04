@@ -3,7 +3,7 @@ var tradespaceView = {
         const that = this;
         // IF SAMPLE
         if (globalState.conceptArchitectures.length <= 0) {
-            dataController.loadDataFromCSV("scripts/tradespace-data-transportation.csv")
+            dataController.loadDataFromCSV("datasets/tradespace-data-serc.csv")
                 .then(that._private.onDataLoad)
                 .catch(console.error);
         }
@@ -52,16 +52,15 @@ var tradespaceView = {
                 for (var j=0; j<choiceOptions.length; j++) {
                     const designDecisionOptionDiv = designDecisionContainerDiv.append("div").classed("choice-option", true);
                     designDecisionOptionDiv.html(choiceOptions[j].name);
-                    // designDecisionOptionDiv.on("mouseover", function() {
-                    //     const option = d3.select(this).html();
-                    //     console.log(d3.selectAll(`circle[id*='${option}']`));
-                    //     d3.selectAll(`circle[id*='${option}']`).classed("selected", true);
-                    // });
-                    // designDecisionOptionDiv.on("mouseout", function() {
-                    //     const option = d3.select(this).html();
-                    //     console.log(d3.selectAll(`circle[id*='${option}']`));
-                    //     d3.selectAll(`circle[id*='${option}']`).classed("selected", false);
-                    // });
+                    designDecisionOptionDiv.attr("id", choiceOptions[j].code);
+                    designDecisionOptionDiv.on("mouseover", function() {
+                        const optionCode = d3.select(this).attr("id");
+                        d3.selectAll(`circle[id*='${optionCode}']`).classed("selected", true);
+                    });
+                    designDecisionOptionDiv.on("mouseout", function() {
+                        const optionCode = d3.select(this).attr("id");
+                        d3.selectAll(`circle[id*='${optionCode}']`).classed("selected", false);
+                    });
                 }
             }
         }
