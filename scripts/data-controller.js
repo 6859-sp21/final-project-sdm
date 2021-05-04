@@ -1,24 +1,28 @@
 const dataController = {
     _private: {
-        _calculateConceptCostAndUtility: function(designDecisions, conceptArchitectureChoices) {
+        _getConceptInfo: function(designDecisions, conceptArchitectureChoices) {
             var cost = 0;
             var utility = 0;
+            var id = "";
             for (var i=0; i<designDecisions.length; i++) {
                 const designDecisionName = designDecisions[i].name;
                 const designDecisionWeight = designDecisions[i].weight;
                 const designDecisionOptions = designDecisions[i].options;
-                const selectedOptionName = conceptArchitectureChoices[designDecisionName];
+                const selectedOptionName = conceptArchitectureChoices[designDecisionName].name;
                 for (j = 0; j<designDecisionOptions.length; j++) {
                     const optionName = designDecisionOptions[j].name;
+                    const optionCode = designDecisionOptions[j].code;
                     if (optionName == selectedOptionName) {
                         cost += designDecisionOptions[j].cost;
                         utility += designDecisionWeight * designDecisionOptions[j].score;
+                        id += optionCode + "-";
                     }
                 }
             }
             return {
                 "cost": cost,
-                "utility": utility
+                "utility": utility,
+                "id": id.substring(0, id.length - 1)
             };
         },
         _chooseDesignDecision: function(designDecisions, designDecisionIndex, conceptArchitecture) {
@@ -34,14 +38,18 @@ const dataController = {
                 if(!conceptArchitecture["choices"]) {
                     conceptArchitecture["choices"] = {};
                 }
-                conceptArchitecture["choices"][designDecision.name] = selectedOption.name;
+                conceptArchitecture["choices"][designDecision.name] = {
+                    "name": selectedOption.name,
+                    "code": selectedOption.code,
+                };
 
                 if (designDecisions[designDecisionIndex+1]) {
                     conceptArchitecture = dataController._private._chooseDesignDecision(designDecisions, designDecisionIndex + 1, conceptArchitecture);
                 } else {
-                    const costAndUtility = dataController._private._calculateConceptCostAndUtility(designDecisions, conceptArchitecture["choices"]);
-                    conceptArchitecture["cost"] = costAndUtility["cost"];
-                    conceptArchitecture["utility"] = costAndUtility["utility"];
+                    const conceptInfo = dataController._private._getConceptInfo(designDecisions, conceptArchitecture["choices"]);
+                    conceptArchitecture["cost"] = conceptInfo["cost"];
+                    conceptArchitecture["utility"] = conceptInfo["utility"];
+                    conceptArchitecture["id"] = conceptInfo["id"];
                 
                     globalState.conceptArchitectures.push(Object.assign({},conceptArchitecture));
                 }
@@ -66,9 +74,11 @@ const dataController = {
         var designDecisionsArray = [];
         for (var i=0; i<csvData.length; i++) {
             const designDecisionName = csvData[i]["design-choice"];
+            const designDecisionCode = csvData[i]["decision-code"];
             const designDecisionWeight = parseFloat(csvData[i]["weight"]);
             const designDecisionOptionName = csvData[i]["choice-option"];
-            const designDecisionOptionCost = parseFloat(csvData[i]["cost_usd"]);
+            const designDecisionOptionCode = csvData[i]["choice-code"];
+            const designDecisionOptionCost = parseFloat(csvData[i]["cost"]);
             const designDecisionOptionScore = parseFloat(csvData[i]["score"]);
 
             var designDecisionIndex = utilities.getArrayIndex(designDecisionsArray, "name", designDecisionName);
@@ -76,6 +86,7 @@ const dataController = {
                 // NEW DESIGN DECISION
                 designDecisionsArray.push({
                     "name": designDecisionName,
+                    "code": designDecisionCode,
                     "weight": designDecisionWeight,
                     "options": []
                 });
@@ -83,6 +94,7 @@ const dataController = {
             }
             designDecisionsArray[designDecisionIndex].options.push({
                 "name": designDecisionOptionName,
+                "code": designDecisionOptionCode,
                 "cost": designDecisionOptionCost,
                 "score": designDecisionOptionScore
             });

@@ -9,9 +9,11 @@ const scatterPlot = {
         const margin = config.getTradespaceDimensionsInPx().margin;
         const maxCost = this._private.getMax(data, "cost");;
         const maxUtility = this._private.getMax(data, "utility");
+        const minCost = this._private.getMin(data, "cost");;
+        const minUtility = this._private.getMin(data, "utility");
         const markRadius = config.getTradespaceDimensionsInPx().markRadius;
-        var xAxisLabel = "Cost (USD)";
-        var yAxisLabel = "Utility";
+        var xAxisLabel = "Cost";
+        var yAxisLabel = "Score";
     
         var svg = d3.select(divId)
             .append("svg")
@@ -19,7 +21,8 @@ const scatterPlot = {
                 .attr("height", height);
         
         var xAxis = d3.scaleLinear()
-            .domain([0, maxCost])
+            // .domain([0, maxCost])
+            .domain([minCost, maxCost])
             .range([margin, width - margin]);
         svg.append("g")
             .attr("transform", `translate(0,${height - margin})`)
@@ -30,7 +33,8 @@ const scatterPlot = {
             .text(xAxisLabel);
         
         var yAxis = d3.scaleLinear()
-            .domain([0, maxUtility])
+            // .domain([0, maxUtility])
+            .domain([minUtility, maxUtility])
             .range([height - margin, margin]);
         svg.append("g")
             .attr("transform", `translate(${margin}, 0)`)
@@ -45,7 +49,7 @@ const scatterPlot = {
             .data(data)
             .enter()
             .append("circle")
-                .attr("id", this._private.generateIDForMark)
+                .attr("id", function(d) {return d.id})
                 .attr("cx", function(d) {return xAxis(d.cost)})
                 .attr("cy", function(d) {return yAxis(d.utility)})
                 .attr("r", markRadius)
@@ -57,16 +61,6 @@ const scatterPlot = {
 
     },
     _private: {
-        generateIDForMark: function(datum) {
-            const choices = datum["choices"];
-            const choiceNames = Object.keys(choices);
-            var id = "";
-            for (var i=0; i<choiceNames.length; i++) {
-                id += choices[choiceNames[i]] + "-";
-            }
-            id = id.substring(0, id.length - 1);
-            return id;
-        },
         onMouseOverMark: function (d, datum) {
             console.log(datum);
             d3.select(this)

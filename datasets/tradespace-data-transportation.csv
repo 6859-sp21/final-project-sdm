@@ -1,4 +1,4 @@
-design-choice,weight,choice-option,weight_kg,cost_usd,capacity,score
+design-choice,weight,choice-option,weight_kg,cost,capacity,score
 Battery Pack,2,P1,512,8000,,512
 Battery Pack,2,P2,420,16000,,420
 Battery Pack,2,P3,825,16000,,825
