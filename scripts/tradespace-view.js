@@ -10,6 +10,9 @@ var tradespaceView = {
     },
     _private: {
         onDataLoad: function(data) {
+
+            that = tradespaceView._private;
+
             // INPUT VALIDATION
 
             // FORMAT DATA
@@ -17,9 +20,11 @@ var tradespaceView = {
             console.log(designDecisions);
 
             // PREPARE TRADESPACE VIEW
-            tradespaceView._private.onDataReady(designDecisions);
+            that.onDataReady(designDecisions);
         },
         onDataReady: function(designDecisions) {
+
+            that = tradespaceView._private;
             
             // GENERATE ARCHITECTURES
             const conceptArchitectures = dataController.generateArchitectures(designDecisions);
@@ -31,11 +36,18 @@ var tradespaceView = {
             // GENERATE SCATTERPLOT
             scatterPlot.generate("#scatterplot", conceptsForPlotting);
 
+            // ADD EDIT AXIS LABEL ICON
+            that.addEditAxesButtons("x");
+            that.addEditAxesButtons("y");
+
             // CHANGE TITLE
-            d3.select("#tradespace-title h2").html(globalState.tradespaceTitle);
+            that.setTradespaceTitle("#tradespace-title", globalState.tradespaceTitle);
+
+            // ADD EDIT_TITLE BUTTON
+            that.addEditTitleButton();
 
             // GENERATE (BOTTOM) SELECTORS
-            tradespaceView._private.updateChoiceSelectors(designDecisions);
+            that.updateChoiceSelectors(designDecisions);
         },
         updateChoiceSelectors: function(designDecisions) {
             const selectorsDiv = d3.select("#choices");
@@ -63,6 +75,53 @@ var tradespaceView = {
                     });
                 }
             }
+        },
+        setTradespaceTitle: function(titleLocation, titleValue) {
+            d3.select(titleLocation).html("");
+            const titlePlaceholder = d3.select(titleLocation).append("h2");
+            titlePlaceholder.html(titleValue);
+        },
+        generateEditBtn: function(btnId, btnLocation, eventHandler) {
+            const editBtn = d3.selectAll(btnLocation).append("div");
+            editBtn.attr("id", btnId);
+            editBtn.classed("btn-edit", true);
+            editBtn.html("<span><img alt='Edit' src='edit-icon.png' /></span>");
+            editBtn.on("click", eventHandler);
+            return editBtn;
+        },
+        editTitleBtnEventHandler: function() {
+            
+            const currentTitle = globalState.tradespaceTitle;
+            const domLocation = "#tradespace-title";
+            const textboxId = "tb-new-title";
+            const submitButtonText = "DONE";
+            
+            // CHANGE TEXT TO TEXTBOX + BUTTON
+            d3.select(domLocation).html("");
+            const textbox = d3.select(domLocation).append("input");
+            textbox.attr("id", textboxId);
+            textbox.attr("type", "text");
+            textbox.attr("value", currentTitle);
+            const submitBtn = d3.select(domLocation).append("button");
+            submitBtn.html(submitButtonText);
+            submitBtn.on("click", function() {
+                // UPDATE VALUE IN DATA MODEL
+                globalState.tradespaceTitle = d3.select(`#${textboxId}`).property("value");
+                // REVERT TITLE TO TEXT
+                tradespaceView._private.setTradespaceTitle(domLocation, globalState.tradespaceTitle);
+                tradespaceView._private.addEditTitleButton();
+            });
+            
+        },
+        addEditTitleButton: function() {
+            const editBtnId = "edit-title";
+            const domLocation = "#tradespace-title";
+
+            // GENERATE EDIT BUTTON
+            this.generateEditBtn(editBtnId, domLocation, tradespaceView._private.editTitleBtnEventHandler);
+        },
+        addEditAxesButtons: function(axisName) {
+            // TODO
         }
     }
 };

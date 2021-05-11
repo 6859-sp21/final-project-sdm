@@ -1,5 +1,5 @@
 var globalState = {
-    "tradespaceTitle": "TRANSPORTATION SYSTEM CONCEPTS",
+    "tradespaceTitle": "SAMPLE TRADESPACE",
     conceptArchitectures: [],
     viewMode: 0
 };

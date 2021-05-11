@@ -239,6 +239,16 @@ html {
 .btn-close:hover {
     background-color: darkgray;
 }
+.btn-edit > span > img {
+    width: 0.75em;
+    height: 0.75em;
+    padding:0.5em;
+    cursor: pointer;
+}
+#tradespace-title {
+    display: flex;
+    align-items: center;
+}
 #tradespace #scatterplot {
     display:flex;
     justify-content: center;
