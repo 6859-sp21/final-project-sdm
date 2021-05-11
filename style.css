@@ -227,16 +227,16 @@ html {
 .btn-close {
     border-radius: 1em;
     font-size: 1em;
-    height: 2em;
     font-weight: 500;
     color: white;
-    width: 2em;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    float:right;
+    float: right;
     cursor: pointer;
     margin: 10px;
+    background-color: grey;
+    padding: 0.5em 0.75em;
+}
+.btn-close:hover {
+    background-color: darkgray;
 }
 #tradespace #scatterplot {
     display:flex;
