@@ -141,6 +141,7 @@ html {
     background-color: grey;
     color: white;
     box-shadow: 5px -5px black;
+    cursor: pointer;
 }
 #build #wizard > #tabs #tab1 .tab-title,
 #build #wizard #controls > #wizard2,

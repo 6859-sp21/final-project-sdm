@@ -24,6 +24,11 @@ d3.select("#btn-back-build-mode").on("click", function() {
         view.changeView(`WIZARD${wizardNumber - 1}`);
     }
 });
+// BUTTON CLICK - BUILD_WIZARD - TAB CLICK
+d3.selectAll(".tab-number").on("click", function() {
+    const tabNumber = this.innerHTML;
+    view.changeView(`WIZARD${tabNumber}`);
+});
 // BUTTON CLICK - BUILD_WIZARD_1 - NEXT
 d3.select("#btn-wizard1").on("click", function() {
     view.changeView("WIZARD2");
