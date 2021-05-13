@@ -72,17 +72,34 @@ const scatterPlot = {
     },
     _private: {
         onMouseOverMark: function (d, datum) {
-            console.log(datum);
-            d3.select(this)
-                .classed("selected", true)
-                .transition()
-                    .attr("r", config.getTradespaceDimensionsInPx().focusRadius);
+            scatterPlot._private.hoverEvents(this, true);
         },
         onMouseOutMark: function (d, datum) {
-            d3.select(this)
-                .classed("selected", false)
-                .transition()
-                    .attr("r", config.getTradespaceDimensionsInPx().markRadius)
+            scatterPlot._private.hoverEvents(this, false);
+        },
+        hoverEvents: function(that, isMouseOver) {
+            
+            const conceptMark = d3.select(that);
+            const conceptMarkId = conceptMark.property("id");
+            const choiceOptions = conceptMarkId.split("-");
+            const isMarkSelected = !conceptMark.classed("unselected");
+
+            if (isMarkSelected) {
+                if (isMouseOver) {
+                    // SELECT CHOICE OPTIONS
+                    for (var i=0; i<choiceOptions.length; i++) {
+                        d3.select(`#${choiceOptions[i]}`).classed("selected", true);
+                    }
+                } else {
+                    // UNSELECT CHOICE OPTIONS (THAT ARE NOT PRE-SELECTED)
+                    const preselectedChoiceOptions = globalState["selectedOptions"];
+                    for (var i=0; i<choiceOptions.length; i++) {
+                        if (preselectedChoiceOptions.indexOf(choiceOptions[i]) < 0) {
+                            d3.select(`#${choiceOptions[i]}`).classed("selected", false);
+                        }
+                    }
+                }
+            }
         },
         getMax: function(data, attribute) {
             var maxValue = data[0][attribute];
