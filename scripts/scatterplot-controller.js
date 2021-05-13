@@ -12,8 +12,8 @@ const scatterPlot = {
         const minCost = this._private.getMin(data, "cost");;
         const minUtility = this._private.getMin(data, "utility");
         const markRadius = config.getTradespaceDimensionsInPx().markRadius;
-        var xAxisLabel = "Cost";
-        var yAxisLabel = "Score";
+        var xAxisLabel = globalState["xAxisLabel"];
+        var yAxisLabel = globalState["yAxisLabel"];
     
         var svg = d3.select(divId)
             .append("svg")
@@ -21,7 +21,6 @@ const scatterPlot = {
                 .attr("height", height);
         
         var xAxis = d3.scaleLinear()
-            // .domain([0, maxCost])
             .domain([minCost, maxCost])
             .range([margin, width - margin]);
         svg.append("g")
@@ -30,10 +29,15 @@ const scatterPlot = {
         svg.append("text")
             .attr("x", width / 3)
             .attr("y", height - 10)
-            .text(xAxisLabel);
-        
+            .text(xAxisLabel)
+                .on("click", function() {
+                    d3.select("#overlay").style("display", "block");
+                    globalState["axisToUpdate"] = "xAxisLabel";
+                    const overlayContent = d3.select("#overlay-content");
+                    overlayContent.style("display", "flex");
+                });    
+
         var yAxis = d3.scaleLinear()
-            // .domain([0, maxUtility])
             .domain([minUtility, maxUtility])
             .range([height - margin, margin]);
         svg.append("g")
@@ -43,7 +47,13 @@ const scatterPlot = {
             .attr("x", -1 * height / 3)
             .attr("y", 10)
             .text(yAxisLabel)
-            .attr("transform", "rotate(-90)");
+            .attr("transform", "rotate(-90)")
+            .on("click", function() {
+                d3.select("#overlay").style("display", "block");
+                globalState["axisToUpdate"] = "yAxisLabel";
+                const overlayContent = d3.select("#overlay-content");
+                overlayContent.style("display", "flex");
+            });
     
         svg.selectAll("circle")
             .data(data)

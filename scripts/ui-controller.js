@@ -32,7 +32,7 @@ d3.selectAll(".tab-number").on("click", function() {
 // BUTTON CLICK - BUILD_WIZARD_1 - NEXT
 d3.select("#btn-wizard1").on("click", function() {
     view.changeView("WIZARD2");
-});
+})
 // BUTTON CLICK - BUILD_WIZARD_2 - NEXT
 d3.select("#btn-wizard2").on("click", function() {
     // IF MORE DESIGN CHOICES - CHANGE CHOICE OPTIONS
@@ -45,4 +45,11 @@ d3.select("#btn-wizard3").on("click", function() {
     // ELSE
     view.changeView("TRADESPACE");
 });
-
+// BUTTON CLICK - OVERLAY - CHANGE LABEL
+d3.select("#btn-update-axis-label").on("click", function() {
+    const labelTextbox = d3.select("#tb-axis-label");
+    globalState[globalState["axisToUpdate"]] = labelTextbox.property("value");
+    scatterPlot.generate("#scatterplot", globalState["tradespaceConcepts"]);
+    view.changeView("TRADESPACE");
+    labelTextbox.property("value","");
+});

@@ -31,14 +31,10 @@ var tradespaceView = {
             console.log(conceptArchitectures);
 
             // CALCULATE COSTS & UTILITIES
-            const conceptsForPlotting = dataController.generateArchitectures(designDecisions);
+            globalState["tradespaceConcepts"] = dataController.generateArchitectures(designDecisions);
 
             // GENERATE SCATTERPLOT
-            scatterPlot.generate("#scatterplot", conceptsForPlotting);
-
-            // ADD EDIT AXIS LABEL ICON
-            that.addEditAxesButtons("x");
-            that.addEditAxesButtons("y");
+            scatterPlot.generate("#scatterplot", globalState["tradespaceConcepts"]);
 
             // CHANGE TITLE
             that.setTradespaceTitle("#tradespace-title", globalState.tradespaceTitle);
@@ -119,9 +115,6 @@ var tradespaceView = {
 
             // GENERATE EDIT BUTTON
             this.generateEditBtn(editBtnId, domLocation, tradespaceView._private.editTitleBtnEventHandler);
-        },
-        addEditAxesButtons: function(axisName) {
-            // TODO
         }
     }
 };

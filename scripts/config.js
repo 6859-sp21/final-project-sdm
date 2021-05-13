@@ -59,6 +59,11 @@ const config = {
                     "#tradespace"
                 ]
             },
+            "OVERLAY": {
+                "elements": [
+                    "#overlay", "#overlay-content"
+                ]
+            }
         },
         tradespaceDimensionsInPx: {
             width: 400,
