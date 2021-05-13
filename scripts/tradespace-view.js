@@ -61,16 +61,103 @@ var tradespaceView = {
                     const designDecisionOptionDiv = designDecisionContainerDiv.append("div").classed("choice-option", true);
                     designDecisionOptionDiv.html(choiceOptions[j].name);
                     designDecisionOptionDiv.attr("id", choiceOptions[j].code);
-                    designDecisionOptionDiv.on("mouseover", function() {
+                    designDecisionOptionDiv.on("click", function() {
                         const optionCode = d3.select(this).attr("id");
-                        d3.selectAll(`circle[id*='${optionCode}']`).classed("selected", true);
+                        tradespaceView._private.onOptionClick(optionCode);
+                    });
+                    designDecisionOptionDiv.on("mouseover", function() {
+                        
+                        const optionCode = d3.select(this).attr("id");
+                        
+                        // IF ALREADY SELECTED - DO NOTHING
+                        // OR IF OTHER OPTION OF SAME DECISION SELECTED - DO NOTHING
+                        // ELSE
+                        const preselectedOptionForDecision = tradespaceView._private.getPreselectedOptionForDecision(optionCode);
+                        if (!preselectedOptionForDecision) {
+                            // SELECT CIRCLES
+                            tradespaceView._private.selectCircles(optionCode);
+                            d3.select(`#${optionCode}`).classed("selected", true);
+
+                        }
                     });
                     designDecisionOptionDiv.on("mouseout", function() {
+
                         const optionCode = d3.select(this).attr("id");
-                        d3.selectAll(`circle[id*='${optionCode}']`).classed("selected", false);
+
+                        // IF NOT PRE-SELECTED (BY CLICKING) - REMOVE SELECTED CLASS
+                        const preselectedOptionForDecision = tradespaceView._private.getPreselectedOptionForDecision(optionCode);
+                        if (preselectedOptionForDecision && preselectedOptionForDecision == optionCode) {
+                            // PRE-SELECTED - DO NOTHING
+                        } else {
+                            d3.select(`#${optionCode}`).classed("selected", false);
+                        }
+
+                        // RESET CONCEPT HIGHLIGHTS TO PRE-SELECTED ONES
+                        tradespaceView._private.selectCircles();
                     });
                 }
             }
+        },
+        onOptionClick: function(optionCode) {
+
+            // CHECK IF DECISION IS ALREADY SELECTED (SAME / DIFFERENT OPTION)
+            const preselectedOptionForDecision = tradespaceView._private.getPreselectedOptionForDecision(optionCode);
+            if (preselectedOptionForDecision) {
+                // IF YES - UNSELECT THAT OPTION
+                globalState["selectedOptions"] = globalState["selectedOptions"].filter(function(value, index, arr){ 
+                    return value != preselectedOptionForDecision;
+                });
+                d3.select(`#${preselectedOptionForDecision}`).classed("selected", false);
+
+                if (preselectedOptionForDecision != optionCode) {
+                    // PUSH OPTION TO SELECTED OPTIONS
+                    globalState["selectedOptions"].push(optionCode);
+                }
+            } else {
+                // PUSH OPTION TO SELECTED OPTIONS
+                globalState["selectedOptions"].push(optionCode);
+            }
+
+            // UPDATE CLASSES - (UN)SELECTED CONCEPTS
+            tradespaceView._private.selectCircles();
+
+            // UPDATE CLASSES - SELECTED OPTION
+            tradespaceView._private.selectOptions();
+        },
+        selectOptions: function() {
+            for (var i=0; i<globalState["selectedOptions"].length; i++) {
+                d3.select(`#${globalState["selectedOptions"][i]}`).classed("selected", true);
+            }
+        },
+        getPreselectedOptionForDecision: function(optionCodeToCheck) {
+            for (var i=0; i<globalState["selectedOptions"].length; i++) {
+                const preselectedOptionCode = globalState["selectedOptions"][i];
+                const decisionCode = preselectedOptionCode.substr(0,3);
+                if (optionCodeToCheck.startsWith(decisionCode)) {
+                    return preselectedOptionCode;
+                }
+            }
+            return null;
+        },
+        selectCircles: function(temporaryOptionCode) {
+            // CLEAR ALL CLASSES
+            d3.selectAll("circle").classed("selected", false);
+            d3.selectAll("circle").classed("unselected", false);
+            // SELECT CIRCLES TO MARK SELECTED
+            var circlesToSelect = d3.selectAll("circle");
+            for ( var i=0; i<globalState["selectedOptions"].length; i++) {
+                const optionCode = globalState["selectedOptions"][i];
+                circlesToSelect = circlesToSelect.filter(`circle[id*='${optionCode}']`);
+            }
+            if (temporaryOptionCode) {
+                circlesToSelect = circlesToSelect.filter(`circle[id*='${temporaryOptionCode}']`);
+            }
+            // MARK CIRCLES SELECTED
+            circlesToSelect.classed("selected", true);
+            // SELECT CIRCLES TO MARK UNSELECTED
+            const circlesToUnselect = d3.selectAll("circle:not(.selected)");
+            // MARK CIRCLES UNSELECTED
+            circlesToUnselect.classed("unselected", true);
         },
         setTradespaceTitle: function(titleLocation, titleValue) {
             d3.select(titleLocation).html("");

@@ -320,21 +320,28 @@ html {
 		 -4px 4px yellow,
 		 -5px 5px yellow;
 }
-.choice-option:hover, .selected {
+.choice-option:hover {
+    cursor: pointer;
+}
+.selected {
     box-shadow:  -1px 1px red,
         -2px 2px red,
         -3px 3px red,
         -4px 4px red,
         -5px 5px red;
-    cursor: pointer;
 }
 circle {
     fill: gray;
-    border: 1px solid black;
+    stroke: white;
+}
+circle.unselected {
+    opacity: 0.25;
+    stroke: none;
 }
 circle.selected {
-    fill: white;
-    border: 1px solid black;
+    /* opacity: 1; */
+    /* stroke: white; */
+    /* stroke-width: 3px; */
 }
 /*
     justify-content

@@ -3,6 +3,7 @@ var globalState = {
     "xAxisLabel": "Cost",
     "yAxisLabel": "Utility",
     "axisToUpdate": "",
+    "selectedOptions": [],
     "tradespaceConcepts": [],
     conceptArchitectures: [],
     viewMode: 0
