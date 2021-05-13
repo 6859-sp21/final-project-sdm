@@ -228,6 +228,17 @@ html {
 #build #wizard #controls > #wizard3 li.selected > div:first-child {
     margin-top: 10px;
 }
+.choice-name {
+    padding: 0.5em;
+    margin: 0.25em;
+    background-color: white;
+    border: 1px solid #77aaff;
+	box-shadow:  -1px 1px #77aaff,
+		 -2px 2px #77aaff,
+		 -3px 3px #77aaff,
+		 -4px 4px #77aaff,
+		 -5px 5px #77aaff;
+}
 /* TRADESPACE VIEW */
 #tradespace {
     /* display: flex; */
@@ -292,18 +303,14 @@ html {
 #tradespace #choices .choice {
     display: flex;
 }
-.choice-name, .choice-option {
+.choice-option {
     padding: 0.5em;
     background-color: white;
     margin: 0.25em;
 }
-.choice-name {
-    border: 1px solid #77aaff;
-	box-shadow:  -1px 1px #77aaff,
-		 -2px 2px #77aaff,
-		 -3px 3px #77aaff,
-		 -4px 4px #77aaff,
-		 -5px 5px #77aaff;
+.choice-name-tradespace {
+    padding: 0.5em;
+    margin: 0.25em;
 }
 .choice-option {
     border: 1px solid yellow;

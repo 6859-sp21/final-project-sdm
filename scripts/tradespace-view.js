@@ -54,8 +54,8 @@ var tradespaceView = {
             // ADD SELECTORS
             for (var i=0; i<designDecisions.length; i++) {
                 const designDecisionContainerDiv = selectorsDiv.append("div").classed("choice", true);
-                const designDecisionDiv = designDecisionContainerDiv.append("div").classed("choice-name", true);
-                designDecisionDiv.html(designDecisions[i].name);
+                const designDecisionDiv = designDecisionContainerDiv.append("div").classed("choice-name-tradespace", true);
+                designDecisionDiv.html(designDecisions[i].name + ":");
                 const choiceOptions = designDecisions[i].options;
                 for (var j=0; j<choiceOptions.length; j++) {
                     const designDecisionOptionDiv = designDecisionContainerDiv.append("div").classed("choice-option", true);
