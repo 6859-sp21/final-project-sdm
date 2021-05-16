@@ -20,8 +20,8 @@ html {
 }
 #content {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-width: 750px;
-    max-width: 1000px;
+    min-width: 500px;
+    max-width: 750px;
     background-color: black;
     box-shadow: 1em 0em 1em rgb(255,255,255,0.2),
         -1em 0em 1em rgb(255,255,255,0.2);
@@ -29,6 +29,42 @@ html {
 #home, #build, #tradespace {
     display: none;
     height: 100%;
+}
+#home-btns span {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+#overlay {
+    background-color: white;
+    opacity: 0.5;
+    z-index: 2;
+}
+#overlay-content {
+    z-index: 3;
+}
+#overlay, #overlay-content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#overlay-content div {
+    margin: 2em;
+}
+#label-changer {
+    box-shadow: 1em 1em 1em gray,
+        -1em -1em 1em gray,
+        -1em 1em 1em gray,
+        1em -1em 1em gray;
+    background-color: white;
+    padding: 5em 10em;
+    border-radius: 5em;
+}
+#label-changer, #concept-info {
+    display: none;
 }
 /* HOME VIEW */
 #home {
@@ -50,6 +86,7 @@ html {
     min-height: 50px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     text-align: center;
     font-style:italic;
     color: black;
@@ -105,7 +142,6 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     padding: 10px;
 }
 #build #messages {
@@ -115,6 +151,7 @@ html {
     border-radius: 0em 3em 3em 0em;
     align-content: center;
     justify-content: flex-start;
+    color: white;
 }
 #build #wizard {
     flex: 3;
@@ -141,6 +178,7 @@ html {
     background-color: grey;
     color: white;
     box-shadow: 5px -5px black;
+    cursor: pointer;
 }
 #build #wizard > #tabs #tab1 .tab-title,
 #build #wizard #controls > #wizard2,
@@ -202,6 +240,17 @@ html {
 #build #wizard #controls > #wizard3 li.selected > div:first-child {
     margin-top: 10px;
 }
+.choice-name {
+    padding: 0.5em;
+    margin: 0.25em;
+    background-color: white;
+    border: 1px solid #77aaff;
+	box-shadow:  -1px 1px #77aaff,
+		 -2px 2px #77aaff,
+		 -3px 3px #77aaff,
+		 -4px 4px #77aaff,
+		 -5px 5px #77aaff;
+}
 /* TRADESPACE VIEW */
 #tradespace {
     /* display: flex; */
@@ -214,8 +263,8 @@ html {
     align-items: baseline;
     background-color: #ccc;
     width: 80%;
-    max-width: 750px;
     min-width: 500px;
+    max-width: 750px;
     height: 80%;
     padding: 25px;
     box-shadow: 0.5em 0.5em 0 red;
@@ -227,16 +276,26 @@ html {
 .btn-close {
     border-radius: 1em;
     font-size: 1em;
-    height: 2em;
     font-weight: 500;
     color: white;
-    width: 2em;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    float:right;
+    float: right;
     cursor: pointer;
     margin: 10px;
+    background-color: grey;
+    padding: 0.5em 0.75em;
+}
+.btn-close:hover {
+    background-color: darkgray;
+}
+.btn-edit > span > img {
+    width: 0.75em;
+    height: 0.75em;
+    padding:0.5em;
+    cursor: pointer;
+}
+#tradespace-title {
+    display: flex;
+    align-items: center;
 }
 #tradespace #scatterplot {
     display:flex;
@@ -244,6 +303,9 @@ html {
 }
 #tradespace #scatterplot svg text {
     font-size: 0.75em;
+    cursor: pointer;
+    text-decoration: underline;     
+    text-decoration-color: blue;
 }
 #tradespace #choices {
     display: flex;
@@ -253,18 +315,14 @@ html {
 #tradespace #choices .choice {
     display: flex;
 }
-.choice-name, .choice-option {
+.choice-option {
     padding: 0.5em;
     background-color: white;
     margin: 0.25em;
 }
-.choice-name {
-    border: 1px solid #77aaff;
-	box-shadow:  -1px 1px #77aaff,
-		 -2px 2px #77aaff,
-		 -3px 3px #77aaff,
-		 -4px 4px #77aaff,
-		 -5px 5px #77aaff;
+.choice-name-tradespace {
+    padding: 0.5em;
+    margin: 0.25em;
 }
 .choice-option {
     border: 1px solid yellow;
@@ -274,21 +332,37 @@ html {
 		 -4px 4px yellow,
 		 -5px 5px yellow;
 }
-.choice-option:hover, .selected {
+.choice-option:hover {
+    cursor: pointer;
+}
+.selected {
     box-shadow:  -1px 1px red,
         -2px 2px red,
         -3px 3px red,
         -4px 4px red,
         -5px 5px red;
-    cursor: pointer;
 }
 circle {
     fill: gray;
-    border: 1px solid black;
+    stroke: white;
+    cursor: pointer;
+}
+circle.unselected {
+    opacity: 0.25;
+    stroke: none;
+    /* cursor: not-allowed; */
 }
 circle.selected {
+    /* opacity: 1; */
+    /* stroke: white; */
+    /* stroke-width: 3px; */
+}
+.concept-tooltip-box, .concept-tooltip-text {
+    display: none;
+}
+.concept-tooltip-box {
     fill: white;
-    border: 1px solid black;
+    stroke: black;
 }
 /*
     justify-content

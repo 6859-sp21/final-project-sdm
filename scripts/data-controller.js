@@ -104,7 +104,7 @@ const dataController = {
     generateArchitectures: function(decisionChoices) {
     
         // FLUSH PREVIOUS ARCHITECTURES
-        globalState.architectureConcepts = [];
+        globalState.conceptArchitectures = [];
 
         // GENERATE ARCHITECTURES
         this._private._chooseDesignDecision(decisionChoices, 0, {});

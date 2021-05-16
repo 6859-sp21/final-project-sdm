@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Tradespace Generator</title>
-        <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="style-external.css" />
+        <link rel="stylesheet" href="style/style.css" />
+        <link rel="stylesheet" href="style/style-external.css" />
     </head>
     <body>
         <div id="content">
@@ -12,13 +12,7 @@
                 <!-- HEADER -->
                 <h1>TRADESPACE<br/>UNIVERSE</h1>
                 <!-- GENERAL INTRODUCTION SECTION -->
-                <div id="intro">
-                    <p>
-                        In general, a tradespace is a representation of a set of arhitectures in a space defined by two or more metrics. 
-                        A tradespace representation is fundamentally different from a comparison of point designs. 
-                        Tradespaces include numerous architectures represented at a lower fidelity nd evaluated with a few simple key metrics.
-                    </p>
-                </div>
+                <div id="intro"></div>
                 <!-- BUTTONS TO SELECT VIEW MODE - EXPLORE/BUILD -->
                 <div id="home-btns">
                     <div id="btn-explore">
@@ -126,16 +120,29 @@
                 <div class="retro">
                     <div id="header-tradespace">
                         <div id="btn-close-tradespace" class="btn-close"><span>x</span></div>
-                        <div id="tradespace-title"><h2>LOADING...</h2></div>
+                        <div id="tradespace-title"></div>
                     </div>
                     <div id="scatterplot"></div>
                     <div id="choices"></div>
                 </div>
             </div>
         </div>
+        <!-- OVERLAY -->
+        <div id="overlay"></div>
+        <div id="overlay-content">
+            <div id="btn-close-overlay" class="btn-close"><span>x</span></div>
+            <div id="label-changer">
+                <label>Enter Axis label:</label>
+                <input type="text" id="tb-axis-label" />
+                <button id="btn-update-axis-label">Update</button>
+            </div>
+            <div id="concept-info">
+            </div>
+        </div>
     </body>
     
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
+    <script src="scripts/d3.v6.min.js"></script>
     
     <script type="text/javascript" src="scripts/config.js"></script>
     <script type="text/javascript" src="scripts/state.js"></script>
@@ -146,6 +153,7 @@
     <script type="text/javascript" src="scripts/view-controller.js"></script>
     <script type="text/javascript" src="scripts/ui-controller.js"></script>
     
+    <script type="text/javascript" src="scripts/home-view.js"></script>
     <script type="text/javascript" src="scripts/tradespace-view.js"></script>
     <script type="text/javascript" src="scripts/wizard1-view.js"></script>
     <script type="text/javascript" src="scripts/wizard2-view.js"></script>
