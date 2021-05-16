@@ -82,6 +82,7 @@ html {
     min-height: 50px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     text-align: center;
     font-style:italic;
     color: black;
@@ -137,7 +138,6 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     padding: 10px;
 }
 #build #messages {
@@ -147,6 +147,7 @@ html {
     border-radius: 0em 3em 3em 0em;
     align-content: center;
     justify-content: flex-start;
+    color: white;
 }
 #build #wizard {
     flex: 3;

@@ -4,7 +4,8 @@ const config = {
             "HOME":{
                 "elements": [
                     "#home"
-                ]
+                ],
+                "viewGenerator": "homeView"
             },
             "WIZARD1": {
                 "viewGenerator": "wizard1View",
@@ -73,25 +74,23 @@ const config = {
             margin: 50
         },
         userMessages: {
-            "w1.1": [
-                "Alright, let’s start with your design choices!",
-                "Go ahead, add ‘em all ->", 
-                "Psst...don’t worry if you miss any, you’ll be able to add more later as well."
+            "intro": [
+                "A tradespace is a visual representation of a set of concepts, developed by making a range of design decisions. Numerous concepts are represented at a lower fidelity and evaluated with a few simple key metrics."
             ],
-            "w1.2": [
-                "Great!",
-                "Feel free to add more", 
-                "When done, click the NEXT button!"
+            "w1": [
+                "Alright, let's get you started!",
+                "List all the relvant design decisions on the right, and then click the NEXT button.", 
+                "Psst...don't worry if you miss any, you can always come back and add more!"
             ],
             "w2": [
                 "Sweet!",
-                "Now, let’s note the different options for each of these decisions...", 
-                "When done, click the NEXT button!"
+                "Now, list all the choice options for each design decision that you just entered. Once done, click on the NEXT button.", 
+                "Psst...don't forget to give a weightage to your decisions!"
             ],
             "w3": [
                 "Almost there!",
-                "Just score the different choice options, and you’re good to go...", 
-                "When done, click the NEXT button!"
+                "For each of the choice options you just entered, give them a score relative to each other.", 
+                "Psst...you're at the last step! Don't give up now!"
             ]
         }
     },
