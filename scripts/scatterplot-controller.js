@@ -14,11 +14,15 @@ const scatterPlot = {
         const markRadius = config.getTradespaceDimensionsInPx().markRadius;
         var xAxisLabel = globalState["xAxisLabel"];
         var yAxisLabel = globalState["yAxisLabel"];
+        const tooltipWidth = 100;   // px
+        const tooltipHeight = 60;   // px
+        const tooltipTextMarginLeft = 10;   // px
     
         var svg = d3.select(divId)
             .append("svg")
                 .attr("width", width)
-                .attr("height", height);
+                .attr("height", height)
+                .attr("id", "svg-tradespace");
         
         var xAxis = d3.scaleLinear()
             .domain([minCost, maxCost])
@@ -51,7 +55,8 @@ const scatterPlot = {
                 view.displayLabelChangerOverlay();
             });
     
-        svg.selectAll("circle")
+        svg.append("g")
+            .selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
@@ -79,8 +84,47 @@ const scatterPlot = {
                     conceptInfoDiv.html(html);
                     // OPEN OVERLAY POPUP
                     view.displayConceptInfoOverlay();
-                });
-    
+            });
+        
+        var tooltipGroups = svg.append("g");
+
+        tooltipGroups.selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+                .attr("id", function(d) {return `tooltip-box-${d.id}`})
+                .attr("width",tooltipWidth)
+                .attr("height",tooltipHeight)
+                .attr("x", function(d) {return xAxis(d.cost) + markRadius})
+                .attr("y", function(d) {return yAxis(d.utility) + markRadius})
+                .classed("concept-tooltip-box", true);
+
+        tooltips = tooltipGroups.selectAll("text")
+            .data(data)
+            .enter()
+            .append("text")
+                .attr("id", function(d) {return `tooltip-text-${d.id}`})
+                .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
+                .attr("y", function(d) {return yAxis(d.utility) + markRadius + (tooltipHeight / 3)})
+                .classed("concept-tooltip-text", true);
+
+        tooltips.append("tspan").text(function(d) {
+                const xAxisLabel = globalState["xAxisLabel"];
+                const xAxisValue = Math.round(d.cost);
+                return `${xAxisLabel}: ${xAxisValue}`
+            })
+            .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
+            .attr("dx", tooltipTextMarginLeft)
+            .attr("dy", 5);
+
+        tooltips.append("tspan").text(function(d) {
+            const yAxisLabel = globalState["yAxisLabel"];
+            const yAxisValue = Math.round(d.utility);
+            return `${yAxisLabel}: ${yAxisValue}`
+        })
+        .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
+        .attr("dx", tooltipTextMarginLeft)
+        .attr("dy", 20);
     },
     _private: {
         onMouseOverMark: function () {
@@ -104,6 +148,7 @@ const scatterPlot = {
                     for (var i=0; i<choiceOptions.length; i++) {
                         d3.select(`#${choiceOptions[i]}`).classed("selected", true);
                     }
+                    scatterPlot._private.displayTooltip(conceptMarkId, true);
                 } else {
                     // UNSELECT CHOICE OPTIONS (THAT ARE NOT PRE-SELECTED)
                     const preselectedChoiceOptions = globalState["selectedOptions"];
@@ -112,8 +157,14 @@ const scatterPlot = {
                             d3.select(`#${choiceOptions[i]}`).classed("selected", false);
                         }
                     }
+                    scatterPlot._private.displayTooltip(conceptMarkId, false);
                 }
             }
+        },
+        displayTooltip: function(choiceOptionIds, displayFlag) {
+            const displayValue = (displayFlag) ? "block" : "none";
+            d3.select(`#tooltip-box-${choiceOptionIds}`).style("display", displayValue);
+            d3.select(`#tooltip-text-${choiceOptionIds}`).style("display", displayValue);
         },
         getMax: function(data, attribute) {
             var maxValue = data[0][attribute];
