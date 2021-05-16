@@ -55,6 +55,7 @@ var tradespaceView = {
             for (var i=0; i<designDecisions.length; i++) {
                 const designDecisionContainerDiv = selectorsDiv.append("div").classed("choice", true);
                 const designDecisionDiv = designDecisionContainerDiv.append("div").classed("choice-name-tradespace", true);
+                designDecisionDiv.attr("id", `dc${i+1}`);
                 designDecisionDiv.html(designDecisions[i].name + ":");
                 const choiceOptions = designDecisions[i].options;
                 for (var j=0; j<choiceOptions.length; j++) {
@@ -168,7 +169,7 @@ var tradespaceView = {
             const editBtn = d3.selectAll(btnLocation).append("div");
             editBtn.attr("id", btnId);
             editBtn.classed("btn-edit", true);
-            editBtn.html("<span><img alt='Edit' src='edit-icon.png' /></span>");
+            editBtn.html("<span><img alt='Edit' src='style/edit-icon.png' /></span>");
             editBtn.on("click", eventHandler);
             return editBtn;
         },

@@ -6,6 +6,10 @@ d3.select("#btn-explore").on("click", function() {
 d3.select("#btn-build").on("click", function() {
     view.changeView("WIZARD1");
 });
+// BUTTON CLICK - CONCEPT INFO OVERLAY - CLOSE
+d3.select("#btn-close-overlay").on("click", function() {
+    view.changeView("TRADESPACE");
+});
 // BUTTON CLICK - TRADESPACE MODE - CLOSE
 d3.select("#btn-close-tradespace").on("click", function() {
     view.changeView("HOME");

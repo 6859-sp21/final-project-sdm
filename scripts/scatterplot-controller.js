@@ -31,10 +31,8 @@ const scatterPlot = {
             .attr("y", height - 10)
             .text(xAxisLabel)
                 .on("click", function() {
-                    d3.select("#overlay").style("display", "block");
                     globalState["axisToUpdate"] = "xAxisLabel";
-                    const overlayContent = d3.select("#overlay-content");
-                    overlayContent.style("display", "flex");
+                    view.displayLabelChangerOverlay();
                 });    
 
         var yAxis = d3.scaleLinear()
@@ -49,10 +47,8 @@ const scatterPlot = {
             .text(yAxisLabel)
             .attr("transform", "rotate(-90)")
             .on("click", function() {
-                d3.select("#overlay").style("display", "block");
                 globalState["axisToUpdate"] = "yAxisLabel";
-                const overlayContent = d3.select("#overlay-content");
-                overlayContent.style("display", "flex");
+                view.displayLabelChangerOverlay();
             });
     
         svg.selectAll("circle")
@@ -64,22 +60,40 @@ const scatterPlot = {
                 .attr("cy", function(d) {return yAxis(d.utility)})
                 .attr("r", markRadius)
                 .on('mouseover', this._private.onMouseOverMark)
-                .on('mouseout', this._private.onMouseOutMark);
+                .on('mouseout', this._private.onMouseOutMark)
+                .on('click', function() {
+
+                    const conceptMark = d3.select(this);
+                    const conceptMarkId = conceptMark.property("id");
+                    const choiceOptions = conceptMarkId.split("-");
+                    // FILL OVERLAY POPUP WITH INFORMATION ABOUT CONCEPT
+                    const conceptInfoDiv = d3.select("#concept-info");
+                    var html = "";
+                    for (var i=0; i<choiceOptions.length; i++) {
+                        const choiceOptionCode = choiceOptions[i];
+                        const choiceOption = d3.select(`#${choiceOptionCode}`).html();
+                        const designDecisionCode = choiceOptionCode.substr(0,3);
+                        const designDecision = d3.select(`#${designDecisionCode}`).html();
+                        html += `<b>${designDecision}</b> ${choiceOption}<br/>`;
+                    }
+                    conceptInfoDiv.html(html);
+                    // OPEN OVERLAY POPUP
+                    view.displayConceptInfoOverlay();
+                });
     
     },
-    selectArchitectures: function(designChoices) {
-
-    },
     _private: {
-        onMouseOverMark: function (d, datum) {
-            scatterPlot._private.hoverEvents(this, true);
+        onMouseOverMark: function () {
+            const conceptMark = d3.select(this);
+            scatterPlot._private.hoverEvents(conceptMark, true);
         },
-        onMouseOutMark: function (d, datum) {
-            scatterPlot._private.hoverEvents(this, false);
+        onMouseOutMark: function () {
+                const conceptMark = d3.select(this);
+                scatterPlot._private.hoverEvents(conceptMark, false);
+            // }
         },
-        hoverEvents: function(that, isMouseOver) {
+        hoverEvents: function(conceptMark, isMouseOver) {
             
-            const conceptMark = d3.select(that);
             const conceptMarkId = conceptMark.property("id");
             const choiceOptions = conceptMarkId.split("-");
             const isMarkSelected = !conceptMark.classed("unselected");

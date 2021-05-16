@@ -21,6 +21,11 @@ const view = {
             for (var i=0; i<elements.length; i++) {
                 d3.selectAll(elements[i]).style("display","flex");
             }
+        },
+        displayOverlay: function() {
+            d3.select("#overlay").style("display", "block");
+            const overlayContent = d3.select("#overlay-content");
+            overlayContent.style("display", "flex");    
         }
     },
     changeView: function(viewName) {
@@ -39,5 +44,15 @@ const view = {
             console.log(msgs[i]);
             msgsDiv.append("p").html(`${msgs[i]}`);
         }
+    },
+    displayLabelChangerOverlay: function() {
+        view._private.displayOverlay();
+        const labelChanger = d3.select("#label-changer");
+        labelChanger.style("display", "block");
+    },
+    displayConceptInfoOverlay: function() {
+        view._private.displayOverlay();
+        const conceptInfo = d3.select("#concept-info");
+        conceptInfo.style("display", "block");
     }
 };

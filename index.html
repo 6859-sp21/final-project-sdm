@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>Tradespace Generator</title>
-        <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="style-external.css" />
+        <link rel="stylesheet" href="style/style.css" />
+        <link rel="stylesheet" href="style/style-external.css" />
     </head>
     <body>
         <div id="content">
@@ -136,15 +136,19 @@
         <!-- OVERLAY -->
         <div id="overlay"></div>
         <div id="overlay-content">
+            <div id="btn-close-overlay" class="btn-close"><span>x</span></div>
             <div id="label-changer">
                 <label>Enter Axis label:</label>
                 <input type="text" id="tb-axis-label" />
                 <button id="btn-update-axis-label">Update</button>
             </div>
+            <div id="concept-info">
+            </div>
         </div>
     </body>
     
-    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
+    <script src="scripts/d3.v6.min.js"></script>
     
     <script type="text/javascript" src="scripts/config.js"></script>
     <script type="text/javascript" src="scripts/state.js"></script>

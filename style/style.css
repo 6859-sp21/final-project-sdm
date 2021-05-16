@@ -45,6 +45,10 @@ html {
     display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+#overlay-content div {
+    margin: 2em;
 }
 #label-changer {
     box-shadow: 1em 1em 1em gray,
@@ -54,6 +58,9 @@ html {
     background-color: white;
     padding: 5em 10em;
     border-radius: 5em;
+}
+#label-changer, #concept-info {
+    display: none;
 }
 /* HOME VIEW */
 #home {
@@ -333,10 +340,12 @@ html {
 circle {
     fill: gray;
     stroke: white;
+    cursor: pointer;
 }
 circle.unselected {
     opacity: 0.25;
     stroke: none;
+    /* cursor: not-allowed; */
 }
 circle.selected {
     /* opacity: 1; */

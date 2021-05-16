@@ -61,7 +61,7 @@ const config = {
             },
             "OVERLAY": {
                 "elements": [
-                    "#overlay", "#overlay-content"
+                    "#overlay", "#overlay-content", "#label-changer", "#concept-info"
                 ]
             }
         },
