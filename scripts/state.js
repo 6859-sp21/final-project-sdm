@@ -6,5 +6,6 @@ var globalState = {
     "selectedOptions": [],
     "tradespaceConcepts": [],
     conceptArchitectures: [],
-    viewMode: 0
+    viewMode: 0,
+    userData: null
 };
