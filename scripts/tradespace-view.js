@@ -3,26 +3,30 @@ var tradespaceView = {
         const that = this;
         // IF SAMPLE
         if (globalState.conceptArchitectures.length <= 0) {
-            dataController.loadDataFromCSV("datasets/tradespace-data-serc.csv")
-                .then(that._private.onDataLoad)
-                .catch(console.error);
+            if (!globalState["userData"]) {
+                dataController.loadDataFromCSV("datasets/tradespace-data-serc.csv")
+                    .then(that._private.onDataLoad)
+                    .catch(console.error);
+            } else {
+                that._private.onDataReady(globalState["userData"]);
+            }
         }
     },
     _private: {
         onDataLoad: function(data) {
-
+            console.log(data);
             that = tradespaceView._private;
 
             // INPUT VALIDATION
 
             // FORMAT DATA
             const designDecisions = dataController.formatCSVData(data);
-            console.log(designDecisions);
 
             // PREPARE TRADESPACE VIEW
             that.onDataReady(designDecisions);
         },
         onDataReady: function(designDecisions) {
+            console.log(designDecisions);
 
             that = tradespaceView._private;
             

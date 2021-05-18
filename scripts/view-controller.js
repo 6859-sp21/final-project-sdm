@@ -41,7 +41,6 @@ const view = {
         
         const msgs = config.getUserMessage(messageCode);
         for (var i=0; i<msgs.length; i++) {
-            console.log(msgs[i]);
             msgsDiv.append("p").html(`${msgs[i]}`);
         }
     },

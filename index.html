@@ -4,6 +4,8 @@
         <title>Tradespace Generator</title>
         <link rel="stylesheet" href="style/style.css" />
         <link rel="stylesheet" href="style/style-external.css" />
+        <link rel="stylesheet" href="style/style-build.css" />
+        <link rel="stylesheet" href="style/style-tradespace.css" />
     </head>
     <body>
         <div id="content">
@@ -34,14 +36,19 @@
             <!-- BUILD MODE -->
             <div id="build">
                 <div class="raised">
+                    <!-- HEADER -->
                     <div id="header-build">
                         <div id="btn-back-build-mode" class="btn-close"><span><</span></div>
                         <h2>BUILD A TRADESPACE</h2>
                         <div id="btn-close-build-mode" class="btn-close"><span>x</span></div>
                     </div>
+                    <!-- CONTENT -->
                     <div id="content-build">
+                        <!-- WIZARD MESSAGES -->
                         <div id="messages"></div>
+                        <!-- WIZARD -->
                         <div id="wizard">
+                            <!-- WIZARD TABS -->
                             <div id="tabs">
                                 <div id="tab1" class="tab">
                                     <span class="tab-number">1</span>
@@ -56,57 +63,61 @@
                                     <span class="tab-title">Score & Price</span>
                                 </div>
                             </div>
+                            <!-- WIZARD CONTROLS -->
                             <div id="controls">
+                                <!-- WIZARD 1 -->
                                 <div id="wizard1" class="control">
-                                    <ul>
-                                        <li class="choice-name">Design Choice 1</li>
-                                        <li class="choice-name">Design Choice 1</li>
-                                        <li class="choice-name">Design Choice 1</li>
+                                    <ul id="decision-list">
                                         <li class="choice-name">
-                                            <input type="text" text="Add new"/>
-                                            <input type="button" value="+" />
+                                            <input id="tb-add-decision" type="text" text="Add new"/>
+                                            <input id="btn-add-decision" type="button" value="Add" />
                                         </li>
                                     </ul>
-                                    <button id="btn-wizard1">Next</button>
+                                    <button id="btn-wizard1" class="disabled">Next</button>
                                 </div>
+                                <!-- WIZARD 2 -->
                                 <div id="wizard2" class="control">
                                     <div id="header-wizard2">
+                                        <div class="w2-change-decision">
+                                            <div id="btn-w2-change-decision-back" class="btn-close"><span>&lt;</span></div>
+                                            <div id="btn-w2-change-decision-next" class="btn-close"><span>&gt;</span></div>
+                                        </div>
                                         <h3>Design Choice 1</h3>
-                                        <div class="weight">Weight: <span id="weight-choice1">1</span></div>
-                                        <input id="slider-weight-choice1" type="range" step="1" min="1" max="10" value="1"/>
+                                        <div class="weight">Weight: <span id="label-decision-weight-w2">1</span></div>
+                                        <input id="slider-decision-weight" type="range" step="1" min="1" max="10" value="1"/>
                                     </div>
-                                    <ul>
-                                        <li class="choice-option">Choice Option 1</li>
-                                        <li class="choice-option">Choice Option 1</li>
-                                        <li class="choice-option">Choice Option 1</li>
+                                    <ul id="options-list-w2">
                                         <li class="choice-option">
-                                            <input type="text" text="Add new"/>
-                                            <input type="button" value="+" />
+                                            <input id="tb-add-option" type="text" text="Add new"/>
+                                            <input id="btn-add-option" type="button" value="Add" />
                                         </li>
                                     </ul>
-                                    <button id="btn-wizard2">Next</button>
+                                    <button id="btn-wizard2" class="disabled">Next</button>
                                 </div>
+                                <!-- WIZARD 3 -->
                                 <div id="wizard3" class="control">
 
                                     <div id="header-wizard3">
-                                        <h3>Design Choice 1</h3>
-                                        <div class="weight">Weight: <span id="weight-choice1-wizard3">1</span></div>
+                                        <div class="w3-change-decision">
+                                            <div id="btn-w3-change-decision-back" class="btn-close"><span>&lt;</span></div>
+                                            <div id="btn-w3-change-decision-next" class="btn-close"><span>&gt;</span></div>
+                                        </div>
+                                        <h3></h3>
+                                        <div class="weight">Weight: <span id="label-decision-weight-w3">1</span></div>
                                     </div>
-                                    <ul>
+                                    <ul id="options-list-w3">
                                         <li class="choice-option selected">
-                                            Choice Option 1
+                                            <h4></h4>
                                             <div>
                                                 <label>Score:</label>
-                                                <span>1</span>
-                                                <input id="slider-score-option1" type="range" step="1" min="1" max="10" value="1"/>
+                                                <span id="label-option-score"></span>
+                                                <input id="slider-option-score" type="range" step="1" min="1" max="10" value="1"/>
                                             </div>
                                             <div>
                                                 <label>Price:</label>
-                                                <input id="tb-price-option1" type="number"/>
+                                                <input id="tb-option-price" type="number"/>
                                             </div>
                                         </li>
-                                        <li class="choice-option">Choice Option 1</li>
-                                        <li class="choice-option">Choice Option 1</li>
                                     </ul>
                                     <button id="btn-wizard3">Generate!</button>
                                 </div>

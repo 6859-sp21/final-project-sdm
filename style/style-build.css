@@ -1,0 +1,153 @@
+/* BUILD VIEW */
+#build {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    background-color: #2A3132;
+}
+#build > div.raised {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 80%;
+    min-width: 500px;
+    max-width: 750px;
+    height: 80%;
+    background-color: #90AFC5;
+    border-radius: 2em;
+    box-shadow: -15px -15px 15px rgb(255,255,255,0.2),
+        15px 15px 15px rgb(0,0,0,0.2);
+}
+#build > div.raised > div {
+    width: 100%;
+    display: flex;
+}
+#build > div.raised > #header-build {
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+}
+#build > div.raised > #content-build {
+    justify-content: flex-start;
+    height: 85%;
+}
+#build #messages,#wizard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+#build #messages {
+    flex-wrap: wrap;
+    flex: 1;
+    background-color: #336B87;
+    border-radius: 0em 3em 3em 0em;
+    align-content: center;
+    justify-content: flex-start;
+    color: white;
+}
+#build #wizard {
+    flex: 3;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+#build #wizard div {
+    padding: 10px;
+}
+#build #wizard #tabs {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+#build #wizard > #tabs .tab-title {
+    padding: 10px;
+    background-color: lightgrey;
+    flex: 1;
+}
+#build #wizard > #tabs .tab-number {
+    padding:10px;
+    border-radius: 50%;
+    background-color: grey;
+    color: white;
+    box-shadow: 5px -5px black;
+    cursor: pointer;
+}
+#build #wizard > #tabs #tab1 .tab-title,
+#build #wizard #controls > #wizard2,
+#build #wizard > #tabs #tab3 .tab-title,
+#build #wizard #controls > #wizard3 {
+    display: none;
+}
+#build #wizard #controls {
+    height: 100%;
+}
+#build #wizard #controls > div {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+#build #wizard #controls > #wizard1 ul,
+#build #wizard #controls > #wizard2 ul,
+#build #wizard #controls > #wizard3 ul {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    list-style: none;
+    padding: 0;
+}
+#build #wizard #controls > #wizard1 ul li,
+#build #wizard #controls > #wizard2 ul li,
+#build #wizard #controls > #wizard3 ul li {
+    text-align: center;
+}
+#build #wizard #controls > #wizard1 button,
+#build #wizard #controls > #wizard2 button,
+#build #wizard #controls > #wizard3 button {
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2em;
+    cursor: pointer;
+}
+button.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+#build #wizard #controls > #wizard2 #header-wizard2,
+#build #wizard #controls > #wizard3 #header-wizard3 {
+    text-align: center;
+}
+#build #wizard #controls > #wizard2 h3,
+#build #wizard #controls > #wizard3 h3 {
+    margin-bottom: 0;
+}
+#build #wizard #controls > #wizard3 input[type="number"] {
+    width: 50px;
+}
+#build #wizard #controls > #wizard3 li.selected {
+    font-weight: bold;
+}
+#build #wizard #controls > #wizard3 li.selected > div {
+    font-style: italic;
+    font-weight: normal;
+}
+#build #wizard #controls > #wizard3 li.selected > div:first-child {
+    margin-top: 10px;
+}
+.choice-name {
+    padding: 0.5em;
+    margin: 0.25em;
+    background-color: white;
+    border: 1px solid #77aaff;
+	box-shadow:  -1px 1px #77aaff,
+		 -2px 2px #77aaff,
+		 -3px 3px #77aaff,
+		 -4px 4px #77aaff,
+		 -5px 5px #77aaff;
+}
+.w2-change-decision, .w3-change-decision {
+    display:flex;
+    justify-content: center;;
+}

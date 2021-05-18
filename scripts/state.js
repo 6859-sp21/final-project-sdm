@@ -5,6 +5,7 @@ var globalState = {
     "axisToUpdate": "",
     "selectedOptions": [],
     "tradespaceConcepts": [],
-    conceptArchitectures: [],
-    viewMode: 0
+    "conceptArchitectures": [],
+    "viewMode": 0,
+    "userData": null
 };
