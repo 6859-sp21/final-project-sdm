@@ -19,7 +19,7 @@ const utilities = {
         for (var i=0; i<designDecisions.length; i++) {
             const designDecision = designDecisions[i];
             const choiceOptions = designDecision.options;
-            if (choiceOptions.length == 0) {
+            if (choiceOptions.length < 2) {
                 return false;
             }
         }
@@ -32,8 +32,6 @@ const utilities = {
             for (var i=0; i<globalState["userData"].length; i++) {
                 const prev = globalState["userData"][i-1];
                 const next = globalState["userData"][i+1];
-                console.log(decisionText);
-                console.log(globalState["userData"][i].name);
                 if (decisionText == globalState["userData"][i].name) {
                     return {
                         "next": next,

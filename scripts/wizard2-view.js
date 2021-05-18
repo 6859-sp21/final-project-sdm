@@ -8,7 +8,7 @@ var wizard2View = {
         const decisionWeightLabel = d3.select("#label-decision-weight");
 
         decisionTextHeader.html(globalState["userData"][0]["name"]);
-        decisionWeightLabel.property("value", 1);
+        decisionWeightLabel.property("value", globalState["userData"][0]["weight"]);
     },
     _private: {
         

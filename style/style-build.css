@@ -109,6 +109,7 @@
     color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: 2em;
+    cursor: pointer;
 }
 button.disabled {
     cursor: not-allowed;
@@ -146,7 +147,7 @@ button.disabled {
 		 -4px 4px #77aaff,
 		 -5px 5px #77aaff;
 }
-.w2-change-decision {
+.w2-change-decision, .w3-change-decision {
     display:flex;
     justify-content: center;;
 }

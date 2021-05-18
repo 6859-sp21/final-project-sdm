@@ -83,7 +83,8 @@ wizard1NextBtn.on("click", function() {
             globalState["userData"].push({
                 "code": `dc${i}`,
                 "name": decisionText,
-                "options": []
+                "options": [],
+                "weight": 1
             });
         }
         // CHANGE VIEW
@@ -105,7 +106,7 @@ prevDecisionChoiceBtn.on("click", function() {
 });
 decisionWeightSlider.on("change", function() {
     // UPDATE DECISION WEIGHT LABEL
-    const decisionWeightLabel = d3.select("#label-decision-weight");
+    const decisionWeightLabel = d3.select("#label-decision-weight-w2");
     decisionWeightLabel.html(this.value);
     // UPDATE DECISION WEIGHT IN GLOBAL STATE
     const decisionTextHeader = d3.select("#header-wizard2 h3");
@@ -116,7 +117,6 @@ decisionWeightSlider.on("change", function() {
             break;
         }
     }
-    console.log(globalState);
 });
 wizard2AddOptionBtn.on("click", function() {
     const optionTextbox = d3.select("#tb-add-option");
@@ -129,13 +129,15 @@ wizard2AddOptionBtn.on("click", function() {
             if (currentDecisionText == globalState["userData"][i].name) {
                 globalState["userData"][i].options.push({
                     "name": optionText,
-                    "code": `dc${i+1}c${globalState["userData"][i].options.length + 1}`
+                    "code": `dc${i+1}c${globalState["userData"][i].options.length + 1}`,
+                    "score": 1,
+                    "cost": 0
                 });
                 break;
             }
         }
         // ADD UI ELEMENT
-        const optionsList = d3.select("#options-list");
+        const optionsList = d3.select("#options-list-w2");
         optionsList.append("li")
             .classed("choice-option", true)
             .html(optionText);          
@@ -166,17 +168,17 @@ const updateWizard2Decision = function(nextOrPrev) {
     if (newDecision) {
         // CHANGE DECISION HEADER TO NEXT DECISION
         decisionTextHeader.html(newDecision.name);
-        // CHANGE DECISION WEIGHT  TO NEXT DECISION - LABEL
-        const decisionWeightLabel = d3.select("#label-decision-weight");
+        // CHANGE DECISION WEIGHT TO NEXT DECISION - LABEL
+        const decisionWeightLabel = d3.select("#label-decision-weight-w2");
         decisionWeightLabel.html(newDecision.weight ? newDecision.weight : 1);
-        // CHANGE DECISION HEADER  TO NEXT DECISION - SLIDER
+        // CHANGE DECISION HEADER TO NEXT DECISION - SLIDER
         decisionWeightSlider.property("value", newDecision.weight ? newDecision.weight : 1);
         // CLEAR CURRENT OPTIONS
-        d3.selectAll("#options-list li:not(:first-child)").remove();
+        d3.selectAll("#options-list-w2 li:not(:first-child)").remove();
         // ADD OPTIONS FOR (NEXT) DECISION (IF ANY)
         if (newDecision.options) {
             for (var i=0; i<newDecision.options.length; i++) {
-                d3.select("#options-list").append("li")
+                d3.select("#options-list-w2").append("li")
                     .classed("choice-option", true)
                     .html(newDecision.options[i].name);
             }
@@ -185,9 +187,59 @@ const updateWizard2Decision = function(nextOrPrev) {
 }
 
 /** WIZARD 3 */
-const wizard2GenerateBtn = d3.select("#btn-wizard3");
-wizard2GenerateBtn.on("click", function() {
-    // IF MORE DESIGN CHOICES - CHANGE CHOICE OPTIONS
-    // ELSE
+const nextDecisionBtnW3 = d3.select("#btn-w3-change-decision-next");
+const prevDecisionBtnW3 = d3.select("#btn-w3-change-decision-back");
+const choiceScoreSlider = d3.select("#slider-option-score");
+const choiceSelectors = d3.selectAll("#options-list-w3 li.choice-option");
+const wizard3GenerateBtn = d3.select("#btn-wizard3");
+nextDecisionBtnW3.on("click", function() {
+    updateWizard3Decision("next");
+});
+prevDecisionBtnW3.on("click", function() {
+    updateWizard3Decision("prev");
+});
+choiceScoreSlider.on("change", function() {
+    const optionScoreSlider = this;
+    const optionScoreLabel = d3.select("#label-option-score");
+    // CHANGE VALUE ON LABEL
+    optionScoreLabel.html(optionScoreSlider.value);
+});
+choiceSelectors.on("click", function() {
+    wizard3View.onSelectorClick(this);
+});
+wizard3GenerateBtn.on("click", function() {
+    // CHANGE VIEW
     view.changeView("TRADESPACE");
 });
+const updateWizard3Decision = function(nextOrPrev) {
+    const decisionTextHeader = d3.select("#header-wizard3 h3");
+    const currentDecisionText = decisionTextHeader.html();
+    const surroundingDecisions = utilities.getSurroundingDecisions(currentDecisionText);
+    const newDecision = surroundingDecisions ? surroundingDecisions[nextOrPrev] : null;
+    if (newDecision) {
+
+        // CHANGE DECISION HEADER TO NEXT DECISION
+        decisionTextHeader.html(newDecision.name);
+        // CHANGE DECISION WEIGHT TO NEXT DECISION - LABEL
+        const decisionWeightLabel = d3.select("#label-decision-weight-w3");
+        decisionWeightLabel.html(newDecision.weight);
+        
+        // CHANGE SELECTED OPTION TO FIRST OPTION OF NEXT DECISION
+        d3.select("#options-list-w3 li.selected h4").html(newDecision.options[0].name);
+        d3.select("#slider-option-score").property("value", newDecision.options[0].score);
+        d3.select("#label-option-score").html(newDecision.options[0].score);
+        d3.select("#tb-option-price").property("value", newDecision.options[0].cost);
+        
+        // CLEAR OTHER OPTIONS FOR CURRENT DECISION
+        d3.selectAll("#options-list-w3 li:not(:first-child)").remove();
+        // ADD (OTHER) OPTIONS FOR NEXT DECISION (IF ANY)
+        for (var i=1; i<newDecision.options.length; i++) {
+            d3.select("#options-list-w3").append("li")
+                .classed("choice-option", true)
+                .html(newDecision.options[i].name)
+                .on("click", function() {
+                    wizard3View.onSelectorClick(this);
+                });
+        }
+    }
+}
