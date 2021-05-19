@@ -6,9 +6,19 @@ var wizard2View = {
         // GENERATE VIEWS FOR FIRST DECISION
         const decisionTextHeader = d3.select("#header-wizard2 h3");
         const decisionWeightLabel = d3.select("#label-decision-weight");
-
+        // const decisionList = d3.select("#decision-list");
+        // FLUSH INFO
+        decisionTextHeader.html("");
+        decisionWeightLabel.html("");
+        // decisionList.selectAll("li:not(:first-child)").remove();
+        // UPDATE INFO
         decisionTextHeader.html(globalState["userData"][0]["name"]);
         decisionWeightLabel.property("value", globalState["userData"][0]["weight"]);
+        // for (var i=0; i<globalState["userData"][0]["options"].length; i++) {
+        //     decisionList.append("li")
+        //         .classed("choice-name", true)
+        //         .html(decisionText);
+        // }
         
         // DISABLE PREV-DECISION BUTTON
         d3.select("#btn-w2-change-decision-back").classed("disabled", true);
