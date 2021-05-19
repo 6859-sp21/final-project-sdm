@@ -84,7 +84,7 @@ const config = {
             ],
             "w2": [
                 "Sweet!",
-                "Now, list all the choice options for each design decision that you just entered. Once done, click on the NEXT button.", 
+                "Now, list all the choice options (minimum 2) for each design decision that you just entered. Once done, click on the NEXT button.", 
                 "Psst...don't forget to give a weightage to your decisions!"
             ],
             "w3": [
