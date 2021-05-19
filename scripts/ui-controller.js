@@ -16,10 +16,15 @@ conceptInfoCloseBtn.on("click", function() {
 });
 changeLabelSubmitBtn.on("click", function() {
     const labelTextbox = d3.select("#tb-axis-label");
-    globalState[globalState["axisToUpdate"]] = labelTextbox.property("value");
-    scatterPlot.generate("#scatterplot", globalState["tradespaceConcepts"]);
+    const newLabel = labelTextbox.property("value");
+    if (newLabel) {
+        // UPDATE AXIS NAME IN GLOBAL STATE
+        globalState[globalState["axisToUpdate"]] = newLabel;
+        // REGENERATE SCATTERPLOT WITH NEW AXIS NAME
+        scatterPlot.generate("#scatterplot", globalState["tradespaceConcepts"]);
+    }
+    // SWITCH TO TRADESPACE VIEW
     view.changeView("TRADESPACE");
-    labelTextbox.property("value","");
 });
 
 /* TRADESPACE VIEW */

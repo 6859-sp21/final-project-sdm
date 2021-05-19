@@ -35,8 +35,7 @@ const scatterPlot = {
             .attr("y", height - 10)
             .text(xAxisLabel)
                 .on("click", function() {
-                    globalState["axisToUpdate"] = "xAxisLabel";
-                    view.displayLabelChangerOverlay();
+                    scatterPlot._private.updateAxisLabel("xAxisLabel");
                 });    
 
         var yAxis = d3.scaleLinear()
@@ -51,8 +50,7 @@ const scatterPlot = {
             .text(yAxisLabel)
             .attr("transform", "rotate(-90)")
             .on("click", function() {
-                globalState["axisToUpdate"] = "yAxisLabel";
-                view.displayLabelChangerOverlay();
+                scatterPlot._private.updateAxisLabel("yAxisLabel");
             });
     
         svg.append("g")
@@ -127,6 +125,15 @@ const scatterPlot = {
         .attr("dy", 15);
     },
     _private: {
+        updateAxisLabel: function(axisName) {
+            // SET AXIS NAME IN GLOBAL STATE
+            globalState["axisToUpdate"] = axisName;
+            // FILL CURRENT VALUE
+            const labelTextbox = d3.select("#tb-axis-label");
+            labelTextbox.property("value", globalState[globalState["axisToUpdate"]]);
+            // DISPLAY LABEL CHANGE VIEW
+            view.displayLabelChangerOverlay();
+        },
         onMouseOverMark: function () {
             const conceptMark = d3.select(this);
             scatterPlot._private.hoverEvents(conceptMark, true);
