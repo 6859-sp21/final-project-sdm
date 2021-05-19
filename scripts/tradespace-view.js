@@ -16,7 +16,11 @@ var tradespaceView = {
                     .then(that._private.onDataLoad)
                     .catch(console.error);
             }
-        } 
+        }
+        // ANIMATIONS
+        setTimeout(function() {
+            d3.select("#tradespace").style("opacity", 1);
+        }, 100);
     },
     _private: {
         flushPrevTradespace: function() {

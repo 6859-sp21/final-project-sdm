@@ -31,6 +31,41 @@ var wizard3View = {
 
         // IF INSUFFICIENT DATA
             // DISABLE GENERATE BUTTON
+
+        // ANIMATIONS
+        setTimeout(function() {
+            // WIZARD VIEW AS A WHOLE
+            d3.select("#build").style("opacity", 1);
+            // USER MESSAGES
+            d3.selectAll("#build #messages p")
+                .each (function(d, i) {
+                    const htmlElement = this;
+                    setTimeout(function() {
+                        htmlElement.style.color = "#FFFFFF";
+                    }, i * 1000);
+                }
+            );
+            // DECISION OPTIONS
+            d3.selectAll("#options-list-w3 li.choice-option:not(:first-child)")
+                .each (function(d, i) {
+                    const htmlElement = this;
+                    setTimeout(function() {
+                        htmlElement.style["max-height"] = "100px";
+                        htmlElement.style["color"] = "#000000";
+                        htmlElement.style["opacity"] = "1";
+                    }, i * 100);
+                }
+            );
+            // TAB TITLE
+            const thisTabTitleElement = d3.select(`#tab3 span.tab-title`);
+            const prevTabTitleElement = d3.select(`#tab2 span.tab-title`);
+            // HIDE PREV TAB TITLE
+            prevTabTitleElement.style("max-width", "0px");
+            prevTabTitleElement.style("color", "#00000000");
+            // SHOW CURRENT TAB TITLE
+            thisTabTitleElement.style("max-width", "1000px");
+            thisTabTitleElement.style("color", "#000000");
+        }, 100);
     },
     onSelectorClick: function(that) {
         if (d3.select(that).classed("selected")) {
@@ -102,6 +137,14 @@ var wizard3View = {
                 wizard3View.onSelectorClick(this);
             }
         );
+
+        // ANIMATIONS
+        setTimeout(function() {
+            const newElement = d3.select("#options-list-w3 li:last-child");
+            newElement.style("max-height", "100px");
+            newElement.style("color", "#000000");
+            newElement.style("opacity", "1");
+        }, 100);
     },
     _private: {
         bindUsercontrols: function() {
@@ -162,6 +205,18 @@ var wizard3View = {
                         });
                 }
             }
+
+            // ANIMATIONS
+            d3.selectAll("#options-list-w3 li.choice-option:not(:first-child)")
+                .each (function(d, i) {
+                    const htmlElement = this;
+                    setTimeout(function() {
+                        htmlElement.style["max-height"] = "100px";
+                        htmlElement.style["color"] = "#000000";
+                        htmlElement.style["opacity"] = "1";
+                    }, i * 100);
+                }
+            );
         }
     }
 };

@@ -31,6 +31,8 @@ changeLabelSubmitBtn.on("click", function() {
 const closeTradespaceBtn = d3.select("#btn-close-tradespace")
 closeTradespaceBtn.on("click", function() {
     view.changeView("HOME");
+    // RESET CSS FOR ANIMATIONS
+    d3.select("#tradespace").style("opacity", 0);
 });
 
 /* BUILD VIEW */
@@ -39,6 +41,8 @@ const wizardBackBtn = d3.select("#btn-back-build-mode");
 const tabs = d3.selectAll(".tab-number");
 closeWizardBtn.on("click", function() {
     view.changeView("HOME");
+    // RESET CSS FOR ANIMATIONS
+    d3.select("#build").style("opacity", 0);
 });
 wizardBackBtn.on("click", function() {
     const currentView = globalState.viewMode;
@@ -48,10 +52,23 @@ wizardBackBtn.on("click", function() {
     } else {
         view.changeView(`WIZARD${wizardNumber - 1}`);
     }
+    // RESET CSS FOR ANIMATIONS
+    d3.select("#build").style("opacity", 0);
 });
 tabs.on("click", function() {
     const tabNumber = this.innerHTML;
     view.changeView(`WIZARD${tabNumber}`);
+    // ANIMATIONS
+    const thisTabTitleElement = d3.select(this);
+    const prevTabTitleElement = d3.select(`#tab${tabNumber - 1} span.tab-title`);
+    setTimeout(function() {
+        // HIDE PREV TAB TITLE
+        prevTabTitleElement.style("max-width", "0px");
+        prevTabTitleElement.style("color", "#00000000");
+        // SHOW NEW TAB TITLE 
+        thisTabTitleElement.style("max-width", "1000px");
+        thisTabTitleElement.style("color", "#000000");
+    }, 100);
 });
 
 /** WIZARD 1 */
@@ -75,7 +92,14 @@ wizard1AddDecisionBtn.on("click", function() {
     } else {
         wizard1NextBtn.classed("disabled", true);
     }
-    
+
+    // ANIMATIONS
+    setTimeout(function() {
+        const newElement = d3.select("#decision-list li:last-child");
+        newElement.style("max-height", "100px");
+        newElement.style("color", "#000000");
+        newElement.style("opacity", "1");
+    }, 100);
 });
 wizard1NextBtn.on("click", function() {
     const decisionItems = d3.selectAll("#decision-list li").nodes();
@@ -157,6 +181,14 @@ wizard2AddOptionBtn.on("click", function() {
         // DISABLE NEXT BUTTON
         wizard2NextBtn.classed("disabled", true);
     }
+
+    // ANIMATIONS
+    setTimeout(function() {
+        const newElement = d3.select("#options-list-w2 li:last-child");
+        newElement.style("max-height", "100px");
+        newElement.style("color", "#000000");
+        newElement.style("opacity", "1");
+    }, 100);
 });
 wizard2NextBtn.on("click", function() {
     if (utilities.minimumOptionsAvailable(globalState["userData"])) {
@@ -189,4 +221,16 @@ const updateWizard2Decision = function(nextOrPrev) {
             }
         }
     }
+
+    // ANIMATIONS
+    d3.selectAll("#options-list-w2 li.choice-option:not(:first-child)")
+        .each (function(d, i) {
+            const htmlElement = this;
+            setTimeout(function() {
+                htmlElement.style["max-height"] = "100px";
+                htmlElement.style["color"] = "#000000";
+                htmlElement.style["opacity"] = "1";
+            }, i * 100);
+        }
+    );
 }

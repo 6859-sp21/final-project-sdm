@@ -9,6 +9,29 @@ var wizard2View = {
 
         decisionTextHeader.html(globalState["userData"][0]["name"]);
         decisionWeightLabel.property("value", globalState["userData"][0]["weight"]);
+
+        // ANIMATIONS
+        setTimeout(function() {
+            d3.select("#build").style("opacity", 1);
+            // const allUserMessageNodes = 
+            d3.selectAll("#build #messages p")
+                .each (function(d, i) {
+                    const htmlElement = this;
+                    setTimeout(function() {
+                        htmlElement.style.color = "#FFFFFF";
+                    }, i * 1000);
+                }
+            );
+            // TAB TITLE
+            const thisTabTitleElement = d3.select(`#tab2 span.tab-title`);
+            const prevTabTitleElement = d3.select(`#tab1 span.tab-title`);
+            // HIDE PREV TAB TITLE
+            prevTabTitleElement.style("max-width", "0px");
+            prevTabTitleElement.style("color", "#00000000");
+            // SHOW CURRENT TAB TITLE
+            thisTabTitleElement.style("max-width", "1000px");
+            thisTabTitleElement.style("color", "#000000");
+        }, 100);
     },
     _private: {
         

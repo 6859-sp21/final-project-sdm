@@ -2,7 +2,9 @@
 #build {
     align-items: center;
     justify-content: center;
-    /* background-color: #2A3132; */
+    /* ANIMATION */
+    opacity: 0;
+    transition: opacity 1s;
 }
 #build > div.raised {
     display: flex;
@@ -46,6 +48,11 @@
     font-style: italic;
     color: white;
 }
+#build #messages p {
+    /* ANIMATION */
+    color: #FFFFFF00;
+    transition: color 2s;
+}
 #build #wizard {
     flex: 3;
     display: flex;
@@ -74,11 +81,18 @@
     box-shadow: 5px -3px #EE6C4D60;
     cursor: pointer;
 }
-#build #wizard > #tabs #tab1 .tab-title,
 #build #wizard #controls > #wizard2,
-#build #wizard > #tabs #tab3 .tab-title,
 #build #wizard #controls > #wizard3 {
     display: none;
+}
+#build #wizard > #tabs #tab1 .tab-title,
+#build #wizard > #tabs #tab2 .tab-title,
+#build #wizard > #tabs #tab3 .tab-title {
+    display: none;
+    /* ANIMATION */
+    max-width: 0px;
+    color: #FFFFFF00;
+    transition: max-width 2s, color 2s;
 }
 #build #wizard #controls {
     height: 100%;
@@ -140,13 +154,21 @@ button.disabled {
 .choice-name {
     padding: 0.5em;
     margin: 0.25em;
-    /* background-color: white; */
     border: 1px solid #293241;
 	box-shadow:  -1px 1px #293241,
 		 -2px 2px #293241,
 		 -3px 3px #293241,
 		 -4px 4px #293241,
 		 -5px 5px #293241;
+}
+#decision-list li.choice-name:not(:first-child),
+#options-list-w2 li.choice-option:not(:first-child),
+#options-list-w3 li.choice-option:not(:first-child) {
+    /* ANIMATION */
+    max-height: 0px;
+    color: #00000000;
+    opacity: 0;
+    transition: max-height 1s, color 1s, opacity 1s;
 }
 .w2-change-decision, .w3-change-decision {
     display:flex;

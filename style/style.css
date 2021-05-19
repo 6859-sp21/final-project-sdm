@@ -71,21 +71,26 @@ html {
         1em -1em 0.5em #E0FBFC;
     width: 100%;
     padding: 1em;
-    min-height: 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
     text-align: center;
     font-style:italic;
-    color: #293241;
     line-height: 1.5em;
     font-family: serif;
     font-size: 1.5em;
+    /* ANIMATION */
+    max-height: 0px;
+    color: #FFFFFF00;
+    transition: max-height 3s, color 3s;
 }
 #home > #home-btns {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    /* ANIMATION */
+    opacity: 0;
+    transition: opacity 2s;
 }
 #home > #home-btns span {
     font-size: 1.5em;
