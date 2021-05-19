@@ -1,18 +1,33 @@
 var tradespaceView = {
     generate: function() {
         const that = this;
-        // IF SAMPLE
-        if (globalState.conceptArchitectures.length <= 0) {
-            if (!globalState["userData"]) {
+
+        // IF USER DATA
+        if (globalState["userData"] && utilities.minimumOptionsAvailable(globalState["userData"])) {
+            that._private.flushPrevTradespace();
+            that._private.onDataReady(globalState["userData"]);
+        }
+        // ELSE IF NO USER DATA
+        else {
+            // IF (DEFAULT) DATA TRADESPACE NOT ALREADY GENERATED
+            if (globalState.conceptArchitectures.length <= 0) {
+                // LOAD (DEFAULT) DATA & GENERATE TRADESPACE
                 dataController.loadDataFromCSV("datasets/tradespace-data-serc.csv")
                     .then(that._private.onDataLoad)
                     .catch(console.error);
-            } else {
-                that._private.onDataReady(globalState["userData"]);
             }
         }
+        // ANIMATIONS
+        setTimeout(function() {
+            d3.select("#tradespace").style("opacity", 1);
+        }, 100);
     },
     _private: {
+        flushPrevTradespace: function() {
+            d3.select("#tradespace-title").html("");
+            d3.select("#scatterplot").html("");
+            d3.select("#choices").html("");
+        },
         onDataLoad: function(data) {
             console.log(data);
             that = tradespaceView._private;

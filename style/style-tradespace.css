@@ -33,6 +33,11 @@
     display:flex;
     justify-content: center;
 }
+#tradespace {
+    /* ANIMATION */
+    opacity: 0;
+    transition: opacity 1s;
+}
 #tradespace #scatterplot svg text {
     font-size: 0.75em;
     cursor: pointer;

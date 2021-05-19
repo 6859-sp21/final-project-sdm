@@ -14,9 +14,9 @@ const scatterPlot = {
         const markRadius = config.getTradespaceDimensionsInPx().markRadius;
         var xAxisLabel = globalState["xAxisLabel"];
         var yAxisLabel = globalState["yAxisLabel"];
-        const tooltipWidth = 100;   // px
-        const tooltipHeight = 60;   // px
-        const tooltipTextMarginLeft = 10;   // px
+        const tooltipWidth = 70;   // px
+        const tooltipHeight = 40;   // px
+        const tooltipTextMarginLeft = 5;   // px
     
         var svg = d3.select(divId)
             .append("svg")
@@ -35,8 +35,7 @@ const scatterPlot = {
             .attr("y", height - 10)
             .text(xAxisLabel)
                 .on("click", function() {
-                    globalState["axisToUpdate"] = "xAxisLabel";
-                    view.displayLabelChangerOverlay();
+                    scatterPlot._private.updateAxisLabel("xAxisLabel");
                 });    
 
         var yAxis = d3.scaleLinear()
@@ -51,8 +50,7 @@ const scatterPlot = {
             .text(yAxisLabel)
             .attr("transform", "rotate(-90)")
             .on("click", function() {
-                globalState["axisToUpdate"] = "yAxisLabel";
-                view.displayLabelChangerOverlay();
+                scatterPlot._private.updateAxisLabel("yAxisLabel");
             });
     
         svg.append("g")
@@ -105,7 +103,7 @@ const scatterPlot = {
             .append("text")
                 .attr("id", function(d) {return `tooltip-text-${d.id}`})
                 .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
-                .attr("y", function(d) {return yAxis(d.utility) + markRadius + (tooltipHeight / 3)})
+                .attr("y", function(d) {return yAxis(d.utility) + markRadius + (tooltipHeight / 4)})
                 .classed("concept-tooltip-text", true);
 
         tooltips.append("tspan").text(function(d) {
@@ -124,9 +122,18 @@ const scatterPlot = {
         })
         .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
         .attr("dx", tooltipTextMarginLeft)
-        .attr("dy", 20);
+        .attr("dy", 15);
     },
     _private: {
+        updateAxisLabel: function(axisName) {
+            // SET AXIS NAME IN GLOBAL STATE
+            globalState["axisToUpdate"] = axisName;
+            // FILL CURRENT VALUE
+            const labelTextbox = d3.select("#tb-axis-label");
+            labelTextbox.property("value", globalState[globalState["axisToUpdate"]]);
+            // DISPLAY LABEL CHANGE VIEW
+            view.displayLabelChangerOverlay();
+        },
         onMouseOverMark: function () {
             const conceptMark = d3.select(this);
             scatterPlot._private.hoverEvents(conceptMark, true);
