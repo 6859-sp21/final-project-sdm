@@ -79,12 +79,14 @@ const config = {
             ],
             "w1": [
                 "Alright, let's get you started!",
-                "List all the relvant design decisions on the right, and then click the NEXT button.", 
-                "Psst...don't worry if you miss any, you can always come back and add more!"
+                "List all the relvant design decisions on the right.", 
+                "Click on the NEXT button when done.", 
+                // "Psst...don't worry if you miss any, you can always come back and add more!"
             ],
             "w2": [
                 "Sweet!",
-                "Now, list all the choice options (minimum 2) for each design decision that you just entered. Once done, click on the NEXT button.", 
+                "Now, list all the choice options (minimum 2) for each of these design decision.",
+                "Click NEXT when done.", 
                 "Psst...don't forget to give a weightage to your decisions!"
             ],
             "w3": [

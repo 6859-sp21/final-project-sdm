@@ -38,7 +38,7 @@ closeTradespaceBtn.on("click", function() {
 /* BUILD VIEW */
 const closeWizardBtn = d3.select("#btn-close-build-mode")
 const wizardBackBtn = d3.select("#btn-back-build-mode");
-const tabs = d3.selectAll(".tab-number");
+// const tabs = d3.selectAll(".tab-number");
 closeWizardBtn.on("click", function() {
     view.changeView("HOME");
     // RESET CSS FOR ANIMATIONS
@@ -55,6 +55,7 @@ wizardBackBtn.on("click", function() {
     // RESET CSS FOR ANIMATIONS
     d3.select("#build").style("opacity", 0);
 });
+/*
 tabs.on("click", function() {
     const tabNumber = this.innerHTML;
     view.changeView(`WIZARD${tabNumber}`);
@@ -70,6 +71,7 @@ tabs.on("click", function() {
         thisTabTitleElement.style("color", "#000000");
     }, 100);
 });
+*/
 
 /** WIZARD 1 */
 const wizard1AddDecisionBtn = d3.select("#btn-add-decision");

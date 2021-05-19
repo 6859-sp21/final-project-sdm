@@ -79,7 +79,7 @@
     background-color: #3D5A80;
     color: #FFFFFF;
     box-shadow: 5px -3px #EE6C4D60;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 #build #wizard #controls > #wizard2,
 #build #wizard #controls > #wizard3 {
