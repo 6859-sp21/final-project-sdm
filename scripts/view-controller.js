@@ -52,6 +52,6 @@ const view = {
     displayConceptInfoOverlay: function() {
         view._private.displayOverlay();
         const conceptInfo = d3.select("#concept-info");
-        conceptInfo.style("display", "block");
+        conceptInfo.style("display", "flex");
     }
 };
