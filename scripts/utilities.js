@@ -14,8 +14,13 @@ const utilities = {
         }
         return names;
     },
-    minimumOptionsAvailable: function() {
-        const designDecisions = globalState["userData"];
+    minimumOptionsAvailable: function(dataToCheck) {
+        const designDecisions = dataToCheck;
+        // REQUIREMENT CHECK: MIN 1 DECISION
+        if (designDecisions.length  < 1) {
+            return false;
+        }
+        // REQUIREMENT CHECK: MIN 2 OPTIONS PER DECISION
         for (var i=0; i<designDecisions.length; i++) {
             const designDecision = designDecisions[i];
             const choiceOptions = designDecision.options;

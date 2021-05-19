@@ -150,7 +150,7 @@ wizard2AddOptionBtn.on("click", function() {
     optionTextbox.property("value","");
 
     // IF ALL DECISIONS HAVE OPTIONS
-    if (utilities.minimumOptionsAvailable()) {
+    if (utilities.minimumOptionsAvailable(globalState["userData"])) {
         // ENABLE NEXT BUTTON
         wizard2NextBtn.classed("disabled", false);
     } else {
@@ -159,7 +159,7 @@ wizard2AddOptionBtn.on("click", function() {
     }
 });
 wizard2NextBtn.on("click", function() {
-    if (utilities.minimumOptionsAvailable()) {
+    if (utilities.minimumOptionsAvailable(globalState["userData"])) {
         // UPDATE GLOBAL STATE
         // CHANGE VIEW
         view.changeView("WIZARD3");

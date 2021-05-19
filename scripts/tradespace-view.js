@@ -3,7 +3,7 @@ var tradespaceView = {
         const that = this;
 
         // IF USER DATA
-        if (globalState["userData"]) {
+        if (utilities.minimumOptionsAvailable(globalState["userData"])) {
             that._private.flushPrevTradespace();
             that._private.onDataReady(globalState["userData"]);
         }
