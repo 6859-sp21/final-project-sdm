@@ -14,9 +14,9 @@ const scatterPlot = {
         const markRadius = config.getTradespaceDimensionsInPx().markRadius;
         var xAxisLabel = globalState["xAxisLabel"];
         var yAxisLabel = globalState["yAxisLabel"];
-        const tooltipWidth = 100;   // px
-        const tooltipHeight = 60;   // px
-        const tooltipTextMarginLeft = 10;   // px
+        const tooltipWidth = 70;   // px
+        const tooltipHeight = 40;   // px
+        const tooltipTextMarginLeft = 5;   // px
     
         var svg = d3.select(divId)
             .append("svg")
@@ -105,7 +105,7 @@ const scatterPlot = {
             .append("text")
                 .attr("id", function(d) {return `tooltip-text-${d.id}`})
                 .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
-                .attr("y", function(d) {return yAxis(d.utility) + markRadius + (tooltipHeight / 3)})
+                .attr("y", function(d) {return yAxis(d.utility) + markRadius + (tooltipHeight / 4)})
                 .classed("concept-tooltip-text", true);
 
         tooltips.append("tspan").text(function(d) {
@@ -124,7 +124,7 @@ const scatterPlot = {
         })
         .attr("x", function(d) {return xAxis(d.cost) + markRadius + tooltipTextMarginLeft})
         .attr("dx", tooltipTextMarginLeft)
-        .attr("dy", 20);
+        .attr("dy", 15);
     },
     _private: {
         onMouseOverMark: function () {
