@@ -133,7 +133,8 @@ circle.unselected {
     padding: 2em 10em;
     font-family: 'Helvetica';
 }
-#label-changer button {
+#label-changer button, 
+#tradespace-title button {
     background-color: #3D5A80;
     color: #E0FBFC;
     border-radius: 1em;
