@@ -115,7 +115,7 @@ var wizard3View = {
                 wizard3View._private.updateWizard3Decision("next");
             });
             prevDecisionBtnW3.on("click", function() {
-                updateWizard3Decision("prev");
+                wizard3View._private.updateWizard3Decision("prev");
             });
             choiceScoreSlider.on("change", function() {
                 const optionScoreSlider = this;
@@ -130,36 +130,36 @@ var wizard3View = {
                 // CHANGE VIEW
                 view.changeView("TRADESPACE");
             });
-            const updateWizard3Decision = function(nextOrPrev) {
-                const decisionTextHeader = d3.select("#header-wizard3 h3");
-                const currentDecisionText = decisionTextHeader.html();
-                const surroundingDecisions = utilities.getSurroundingDecisions(currentDecisionText);
-                const newDecision = surroundingDecisions ? surroundingDecisions[nextOrPrev] : null;
-                if (newDecision) {
-
-                    // CHANGE DECISION HEADER TO NEXT DECISION
-                    decisionTextHeader.html(newDecision.name);
-                    // CHANGE DECISION WEIGHT TO NEXT DECISION - LABEL
-                    const decisionWeightLabel = d3.select("#label-decision-weight-w3");
-                    decisionWeightLabel.html(newDecision.weight);
-                    
-                    // CHANGE SELECTED OPTION TO FIRST OPTION OF NEXT DECISION
-                    d3.select("#options-list-w3 li.selected h4").html(newDecision.options[0].name);
-                    d3.select("#slider-option-score").property("value", newDecision.options[0].score);
-                    d3.select("#label-option-score").html(newDecision.options[0].score);
-                    d3.select("#tb-option-price").property("value", newDecision.options[0].cost);
-                    
-                    // CLEAR OTHER OPTIONS FOR CURRENT DECISION
-                    d3.selectAll("#options-list-w3 li:not(:first-child)").remove();
-                    // ADD (OTHER) OPTIONS FOR NEXT DECISION (IF ANY)
-                    for (var i=1; i<newDecision.options.length; i++) {
-                        d3.select("#options-list-w3").append("li")
-                            .classed("choice-option", true)
-                            .html(newDecision.options[i].name)
-                            .on("click", function() {
-                                wizard3View.onSelectorClick(this);
-                            });
-                    }
+        },
+        updateWizard3Decision: function(nextOrPrev) {
+            const decisionTextHeader = d3.select("#header-wizard3 h3");
+            const currentDecisionText = decisionTextHeader.html();
+            const surroundingDecisions = utilities.getSurroundingDecisions(currentDecisionText);
+            const newDecision = surroundingDecisions ? surroundingDecisions[nextOrPrev] : null;
+            if (newDecision) {
+    
+                // CHANGE DECISION HEADER TO NEXT DECISION
+                decisionTextHeader.html(newDecision.name);
+                // CHANGE DECISION WEIGHT TO NEXT DECISION - LABEL
+                const decisionWeightLabel = d3.select("#label-decision-weight-w3");
+                decisionWeightLabel.html(newDecision.weight);
+                
+                // CHANGE SELECTED OPTION TO FIRST OPTION OF NEXT DECISION
+                d3.select("#options-list-w3 li.selected h4").html(newDecision.options[0].name);
+                d3.select("#slider-option-score").property("value", newDecision.options[0].score);
+                d3.select("#label-option-score").html(newDecision.options[0].score);
+                d3.select("#tb-option-price").property("value", newDecision.options[0].cost);
+                
+                // CLEAR OTHER OPTIONS FOR CURRENT DECISION
+                d3.selectAll("#options-list-w3 li:not(:first-child)").remove();
+                // ADD (OTHER) OPTIONS FOR NEXT DECISION (IF ANY)
+                for (var i=1; i<newDecision.options.length; i++) {
+                    d3.select("#options-list-w3").append("li")
+                        .classed("choice-option", true)
+                        .html(newDecision.options[i].name)
+                        .on("click", function() {
+                            wizard3View.onSelectorClick(this);
+                        });
                 }
             }
         }
