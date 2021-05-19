@@ -31,6 +31,13 @@ var wizard3View = {
 
         // IF INSUFFICIENT DATA
             // DISABLE GENERATE BUTTON
+        
+        // DISABLE PREV-DECISION BUTTON
+        d3.select("#btn-w3-change-decision-back").classed("disabled", true);
+        // IF ONLY ONE DECISION - CANCEL NEXT BTN
+        if (globalState["userData"].length == 1) {
+            d3.select("#btn-w3-change-decision-next").classed("disabled", true);    
+        }
 
         // ANIMATIONS
         setTimeout(function() {
@@ -204,6 +211,11 @@ var wizard3View = {
                             wizard3View.onSelectorClick(this);
                         });
                 }
+
+                // ENABLE/DISABLE DECISION-CHANGE BTNS
+                const prevDecisionBtn = d3.select("#btn-w3-change-decision-back");
+                const nextDecisionBtn = d3.select("#btn-w3-change-decision-next");
+                utilities.enableDisableNextPrevDecisionButtons(prevDecisionBtn, nextDecisionBtn, nextOrPrev, surroundingDecisions);
             }
 
             // ANIMATIONS

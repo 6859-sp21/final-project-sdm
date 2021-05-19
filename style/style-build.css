@@ -174,3 +174,11 @@ button.disabled {
     display:flex;
     justify-content: center;;
 }
+#btn-w2-change-decision-back.disabled, 
+#btn-w2-change-decision-next.disabled, 
+#btn-w3-change-decision-back.disabled, 
+#btn-w3-change-decision-next.disabled {
+    background-color: #EE6C4D;
+    cursor: not-allowed;
+    opacity: 0.4;
+}

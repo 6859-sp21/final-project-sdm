@@ -221,6 +221,12 @@ const updateWizard2Decision = function(nextOrPrev) {
                     .classed("choice-option", true)
                     .html(newDecision.options[i].name);
             }
+
+            // ENABLE/DISABLE DECISION-CHANGE BTNS
+            console.log(surroundingDecisions);
+            const prevDecisionBtn = d3.select("#btn-w2-change-decision-back");
+            const nextDecisionBtn = d3.select("#btn-w2-change-decision-next");
+            utilities.enableDisableNextPrevDecisionButtons(prevDecisionBtn, nextDecisionBtn, nextOrPrev, surroundingDecisions);
         }
     }
 

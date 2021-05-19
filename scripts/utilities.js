@@ -31,19 +31,43 @@ const utilities = {
         return true;
     },
     getSurroundingDecisions: function(decisionText) {
-        if (globalState["userData"].length == 1) {
-            return null;
-        } else {
             for (var i=0; i<globalState["userData"].length; i++) {
-                const prev = globalState["userData"][i-1];
-                const next = globalState["userData"][i+1];
                 if (decisionText == globalState["userData"][i].name) {
                     return {
-                        "next": next,
-                        "prev": prev
+                        "prev2": globalState["userData"][i-2],
+                        "prev": globalState["userData"][i-1],
+                        "next": globalState["userData"][i+1],
+                        "next2": globalState["userData"][i+2],
                     };
                 }
             }
-        }
+    },
+    enableDisableNextPrevDecisionButtons: function(prevDecisionBtn, nextDecisionBtn, nextOrPrev, surroundingDecisions) {
+            // IF NEXT BUTTON CLICKED
+            if (nextOrPrev == "next") {
+                // ENABLE PREV BTN
+                prevDecisionBtn.classed("disabled", false);
+                // IF next2 AVAILABLE
+                if (surroundingDecisions["next2"]) {
+                    // ENABLE NEXT BTN
+                    nextDecisionBtn.classed("disabled", false);
+                } else {
+                    // DISABLE NEXT BTN
+                    nextDecisionBtn.classed("disabled", true);
+                }
+            }
+            // IF PREV BUTTON CLICKED
+            else {
+                // ENABLE NEXT BTN
+                nextDecisionBtn.classed("disabled", false);
+                // IF prev2 AVAILABLE
+                if (surroundingDecisions["prev2"]) {
+                    // ENABLE PREV BTN
+                    prevDecisionBtn.classed("disabled", false);
+                } else {
+                    // DISABLE PREV BTN
+                    prevDecisionBtn.classed("disabled", true);
+                }
+            }
     }
 };
